@@ -1,0 +1,190 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.OrderReportPDFModel
+@{
+}
+<style>
+    /* OrderReport.css */
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .content-wrapper {
+        margin: 20px auto;
+        max-width: 1200px;
+    }
+
+    .content-header h1 {
+        color: darkred;
+        text-align: center;
+        background: linear-gradient(90deg, #f8f9fa, #808000);
+        font-weight: bold;
+        border: 1px solid #a8e063;
+        padding: 10px 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+        .content-header h1:hover {
+            background: linear-gradient(90deg, #e9ecef, #dee2e6);
+        }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+    }
+
+    .card-header {
+        background-color: #6c757d;
+        color: white;
+        font-weight: bold;
+        border-radius: 10px 10px 0 0;
+        padding: 15px;
+    }
+
+        .card-header .btn {
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+    .table {
+        width: 100%;
+        margin: 20px 0;
+        border-collapse: collapse;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+        .table th {
+            background-color: #343a40;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .table td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .table tbody tr:nth-child(odd) {
+            background-color: #BAB86C /* #808000 */;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #B8BC86 /* #6B8E23 */;
+        }
+
+        .table tbody tr:hover {
+            background-color: #808000;
+            cursor: pointer;
+        }
+
+    .breadcrumb {
+        background-color: transparent;
+    }
+
+        .breadcrumb .breadcrumb-item a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .breadcrumb .breadcrumb-item.active {
+            color: #6c757d;
+        }
+</style>
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0"
+                        style="color: darkred; align-items:center; align-content:center;
+           background: linear-gradient(90deg, #f8f9fa, #556B2F);
+           font-weight: bold;
+           border: 1px solid #4A412A;
+           padding: 10px 15px;
+           border-radius: 8px;
+           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+           transition: all 0.3s ease;"
+                        onmouseover="this.style.background='linear-gradient(90deg, #e9ecef, #dee2e6)';"
+                        onmouseout="this.style.background='linear-gradient(90deg, #f8f9fa, #a8e063)';">
+                        Order Data List
+                    </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-page="index">Home</a></li>
+                        <li class="breadcrumb-item active">Order Report PDF</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline card-info">
+                    <div class="card-header d-flex justify-content-between">
+                        <form id="searchForm" method="get" class="form-inline">
+                            <input type="text" name="searchQuery" class="form-control mr-2" placeholder="Search by Order Number" value="@Request.Query["searchQuery"]">
+                            <button type="submit" class="btn btn-primary mr-2">Search</button>
+                            <button type="button" id="resetButton" class="btn btn-warning">Reset</button>
+                        </form>
+                        <a id="downloadPdf" asp-page-handler="ExportToPDF" class="btn btn-danger">Download PDF</a>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped">
+                            <thead style="background-color: #343a40; color: white;">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>CustomerId</th>
+                                    <th>OrderNumber</th>
+                                    <th>OrderDate</th>
+                                    <th>OrderStatus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.OrderList.Count > 0)
+                                {
+                                    foreach (var item in Model.OrderList)
+                                    {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td>@item.CustomerId</td>
+                                            <td>@item.OrderNumber</td>
+                                            <td>@item.OrderDate</td>
+                                            <td>@item.OrderStatus</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5">No data found</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('resetButton').addEventListener('click', () => {
+            const url = '@Url.Page("OrderReport")';
+            window.location.href = url;
+        });
+
+    </script>
+}

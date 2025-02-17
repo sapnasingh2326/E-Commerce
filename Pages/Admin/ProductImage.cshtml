@@ -1,0 +1,171 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.ProductImageModel
+@{
+    ViewBag.Title = "ProductImage";
+}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <!-- 1st container fluid start-->
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Product Images</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-page="index">Home</a></li>
+                        <li class="breadcrumb-item active">DataTables</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- / 1st container-fluid ends-->
+    </section>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- Countrise validation -->
+                <div class="card card-primary card-outline card-info">
+                    <h5 class="ml-3">ProductImage</h5>
+                    <!-- /.card-header -->
+                    <!-- form start -----enctype="multipart/form-data for form-->
+
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="productImage.Id" />
+                        
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label> Products:</label>
+                                    <select id="RegistrationId" asp-for="productImage.Product" class="form-control">
+                                        <option value="">Select Products</option>
+                                        @if (Model.product != null)
+                                        {
+                                            @foreach (var item in Model.product)
+                                            {
+                                                <option value="@item.Id">@item.ProductName</option>
+                                            }
+                                        }
+                                    </select>
+
+                                    <span asp-validation-for="productImage.Id" class="text-danger"></span>
+                                </div>
+                       
+                            <!-- Product Images -->
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="ml-2">Product Image</label>
+                                    <input type="file" asp-for="productImage.ImageUrl " multiple class="form-control" placeholder="ImageUrl " >
+                                </div>
+                            </div>
+                             
+
+                            <!-- /.card-body -->
+                            <div class="text-center mt-3">
+
+                                @if (Model.productImage.Id != 0)
+                                {
+                                    <button type="submit" class="btn btn-info">UPDATE</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-info">SUBMIT</button>
+
+                                }
+                            </div>
+
+                        </div>
+
+                    </form>
+
+
+                </div>
+
+
+
+
+                <form method="post">
+
+                    <div class="card-body card card-outline card-success pl-1">
+                        <div class="card-header">
+
+                            <h3 class="mr-2">Product Image Datalist</h3>
+                        </div>
+
+                        <table id="example1" class="table table-bordered table-striped">
+                            <!--For drop menu-->
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">ImageUrl</th>
+                                    <th scope="col">DefaultImage</th>
+                                    <th scope="col">Action</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @if (Model.datalist.Count() > 0)
+                                {
+                                    foreach (var item in Model.datalist)
+                                    {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td>@item.Product</td>
+
+                                            @*   for image *@
+                                            <td><img src="@item.ImageUrl" width="50" height="50" alt="Banner Image"></td>
+                                            <td><img src="@item.DefaultImage" width="50" height="50" alt="Banner Image"></td>
+
+                                            
+
+
+
+                                            <td class="mr-5">
+                                                <a asp-page="ProductImage" asp-route-id="@item.Id" class="btn btn-success">EDIT</a>
+
+
+                                                <button asp-page-handler="Delete" asp-route-id="@item.Id"
+                                                        onclick="return confirm('Are you sure you want to DELETE?')" class="btn btn-danger">
+                                                    DELETE
+                                                </button>
+
+                                            </td>
+
+
+                                        </tr>
+                                    }
+                                }
+
+
+
+                                else
+                                {
+
+                                    <tr>No data found</tr>
+
+                                }
+
+
+                            </tbody>
+
+
+                        </table>
+
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<ECommerceWeb.VModel.DynamicpageVM>
+@{
+
+}
+
+<ul class="list-unstyled">
+    @foreach (var item in Model)
+    {
+        <li><i class="fa fa-angle-right"></i> <a href="DynamicPage?id=@item.PageId">@item.PageName</a></li>
+    }
+</ul>
+
+

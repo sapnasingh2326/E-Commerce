@@ -1,0 +1,291 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.WishlistModel
+@{
+    ViewBag.Title = "Wishlist";
+}
+ 
+<div class="content-wrapper container mt-7"> 
+    <!-- WishList Form -->
+    <div class="card shadow-sm p-4">
+        <h3 class="text-center mb-4">@(Model.WishListItem.Id > 0 ? "Edit WishList Item" : "Add to WishList")</h3>
+        <form method="post">
+            <div class="form-group mb-3">
+                <label for="ProductName" class="form-label">Product Name</label>
+                <select id="ProductName" asp-for="WishListItem.Product.ProductName" class="form-control" placeholder="Select product name" onchange="updatePrice()">
+                    <option value="">Select Products</option>
+                    @if (Model.Products != null)
+                    {
+                        @foreach (var item in Model.Products)
+                        {
+                            <option value="@item.Id" data-price="@item.Price">@item.ProductName</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="WishListItem.Product.ProductName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="Price" class="form-label">Price</label>
+                <input id="Price" asp-for="WishListItem.Product.Price" class="form-control" placeholder="Product price" readonly />
+                <span asp-validation-for="WishListItem.Product.Price" class="text-danger"></span>
+            </div>
+
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-success px-5">@(Model.WishListItem.Id > 0 ? "Update" : "Add")</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Wish List Table -->
+    <div class="mt-5">
+        <h2 class="text-center">Your Wish List</h2>
+
+        <table class="table table-striped table-hover mt-4 shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ProductsList)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@item.ProductPrice</td> <!-- Display price in currency format -->
+                        <td>
+                            <a asp-page="./WishList" asp-route-id="@item.id" class="btn btn-primary btn-sm mx-1">Edit</a>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@item.id" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm mx-1">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add some CSS to beautify the form and table -->
+<style>
+    .content-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    h3, h2 {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .form-control {
+        border: 2px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+    .btn-primary:hover{
+        background-color:crimson;
+    }
+
+    .table-striped tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .table-hover tbody tr:hover td,
+    .table-hover tbody tr:hover th{
+        background-color:darkgoldenrod;
+       
+    }
+
+   thead tr:hover {
+        background-color: darkmagenta; 
+        color: #fff; 
+    }
+
+    thead tr {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    thead.table-dark {
+        background-color: black; 
+        color: #fff; 
+    }
+    h2,h3:hover{
+        color: #331f00;
+    }
+</style>
+
+<!-- JavaScript for confirmation before delete -->
+<script>
+    document.querySelectorAll('.btn-danger').forEach(button => {
+        button.addEventListener('click', function (event) {
+            if (!confirm('Are you sure you want to delete this item?')) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+<script>
+    function updatePrice() {
+        // Get the selected product from the dropdown
+        var productDropdown = document.getElementById("ProductName");
+        var selectedOption = productDropdown.options[productDropdown.selectedIndex];
+
+        // Get the price from the data-price attribute
+        var price = selectedOption.getAttribute("data-price");
+
+        // Set the price in the Price input field
+        document.getElementById("Price").value = price;
+    }
+</script>
+
+
+
+
+
+
+
+@* <!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Wishlist Items</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="Dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Wishlists</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div><!-- /.content-header -->
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <form method="post">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">User Wishlist</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Wishlist.Id" class="form-label">WishlistId</label>
+                                            <input asp-for="Wishlist.Id" class="form-control" />
+                                            <span asp-validation-for="Wishlist.Id" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Wishlist.ProductId" class="form-label">ProductId</label>
+                                            <input asp-for="Wishlist.ProductId" class="form-control" />
+                                            <span asp-validation-for="Wishlist.ProductId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Wishlist.RegistrationId" class="form-label">RegistrationId</label>
+                                            <input asp-for="Wishlist.RegistrationId" class="form-control" rows="4"></input>
+                                            <span asp-validation-for="Wishlist.RegistrationId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Wishlist.CreatedDate" class="form-label">CreatedDate</label>
+                                            <input asp-for="Wishlist.CreatedDate" class="form-control" type="datetime-local" />
+                                            <span asp-validation-for="Wishlist.CreatedDate" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-center">
+                                <button type="submit" class="btn btn-success create-btn">Create</button>
+                                <button type="button" class="btn btn-warning edit-btn">Edit</button>
+                                <button type="button" class="btn btn-danger delete-btn">Delete</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">User List</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>ProductId</th>
+                                        <th>RegistrationId</th>
+                                        <th>CreatedDate</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var Wistlist in Model.Wishlists)
+                                    {
+                                        <tr>
+                                            <td>@Wistlist.Id</td>
+                                            <td>@Wistlist.ProductId</td>
+                                            <td>@Wistlist.RegistrationId</td>
+                                            <td>@Wistlist.CreatedDate</td>
+                                            <td class="text-center">
+                                                <button class="btn btn-success create-btn" data-id="@Wistlist.Id">Create</button>
+                                                <button class="btn btn-warning edit-btn" data-id="@Wistlist.Id">Edit</button>
+                                                <button class="btn btn-danger delete-btn" data-id="@Wistlist.Id">Delete</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+ *@
+

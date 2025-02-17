@@ -1,0 +1,102 @@
+﻿@page
+@model ECommerceWeb.Pages.LogoutModel
+@{
+    ViewData["Title"] = "Logout";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout Dropdown</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .logout-info {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .logout-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .name {
+            font-weight: bold;
+            font-size: 16px;
+            margin-right: auto;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+    <ul class="navbar-nav">
+        <!-- Logout Dropdown Section -->
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                <img class="logout-img" src="~/AdminLTE/dist/img/user8-128x128.jpg" alt="User Avatar">
+                <span class="name">User</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <div class="card-body">
+                    <!-- Admin Logout Option -->
+                    <div class="logout-info clearfix">
+                        <img class="logout-img float-left" src="~/AdminLTE/dist/img/user8-128x128.jpg" alt="User Avatar">
+                        <span class="name float-left">Admin</span>
+                        <button class="btn btn-danger float-right" onclick="logout()">Logout</button>
+                    </div>
+                    <!-- Customer Logout Option -->
+                    <div class="logout-info clearfix">
+                        <img class="logout-img float-left" src="~/AdminLTE/dist/img/user8-128x128.jpg" alt="User Avatar">
+                        <span class="name float-left">Customer</span>
+                        <button class="btn btn-danger float-right" onclick="customerLogout()">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                <i class="fas fa-expand-arrows-alt"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
+                <i class="fas fa-th-large"></i>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Optional JavaScript to handle logout -->
+    <script>
+        function logout() {
+            // Implement your logout logic here
+            alert('Logged out successfully');
+            // For example, redirect to the login page
+            window.location.href = '/login';
+        }
+
+        function customerLogout() {
+            // Implement your customer logout logic here
+            alert('Customer logged out successfully');
+            // For example, redirect to the customer login page
+            window.location.href = '/customer-login';
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

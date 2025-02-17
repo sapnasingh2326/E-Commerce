@@ -1,0 +1,115 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.ProductReviewModel
+@{
+    ViewBag.Title = "ProductReview";
+}
+<div class="content-wrapper py-4">
+    <h2 class="text-center text-primary mb-4">Product Reviews</h2>
+
+    @foreach (var review in Model.Reviews)
+    {
+        <div class="review card mb-4 shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title text-warning">Rating: @review.Rating</h4>
+                <p class="card-text">@review.Comment</p>
+                <p class="text-muted"><strong>By:</strong> @review.Registration.UserName on @review.CreatedDate.ToString("MMMM dd, yyyy")</p>
+
+                @if (!string.IsNullOrEmpty(review.ImageOne))
+                {
+                    <img src="@Url.Content(review.ImageOne)" alt="Review Image 1" class="img-fluid mb-2 rounded border" />
+                }
+
+                @if (!string.IsNullOrEmpty(review.ImageTwo))
+                {
+                    <img src="@Url.Content(review.ImageTwo)" alt="Review Image 2" class="img-fluid mb-2 rounded border" />
+                }
+            </div>
+            <div class="card-footer text-center bg-light">
+                <span class="text-muted">Thank you for your feedback!</span>
+            </div>
+        </div>
+    }
+   
+
+    <form method="post" enctype="multipart/form-data" class="mt-4 p-4 border rounded bg-light shadow-sm">
+        <h3 class="text-center text-success mb-3">Submit Your Review </h3>
+        <div class="form-group">
+            <label for="Rating" class="font-weight-bold">Rating</label>
+            <input type="number" class="form-control border-primary" id="Rating" asp-for="NewReview.Rating" min="1" max="5" required />
+        </div>
+        <div class="form-group">
+            <label for="Comment" class="font-weight-bold">Comment</label>
+            <textarea class="form-control border-success" id="Comment" asp-for="NewReview.Comment" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="ImageOne" class="font-weight-bold">Upload Image 1</label>
+            <input type="file" class="form-control border-info" id="ImageOne" asp-for="NewReview.ImageOne" />
+        </div>
+        <div class="form-group">
+            <label for="ImageTwo" class="font-weight-bold">Upload Image 2</label>
+            <input type="file" class="form-control border-info" id="ImageTwo" asp-for="NewReview.ImageTwo" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block font-weight-bold">Submit Review</button>
+        
+    
+    </form>
+    
+</div>
+
+<style>
+    h3{
+        color:darkred;
+    }
+    .content-wrapper {
+        background-color: #f8f9fa;
+    }
+
+    .review {
+        background-color: #ffffff;
+    }
+
+        .review .card-title {
+            font-size: 1.25rem;
+        }
+
+        .review img {
+            max-height: 150px;
+        }
+
+    .form-group label {
+        color: #5c590d;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        border-radius: 0.25rem;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

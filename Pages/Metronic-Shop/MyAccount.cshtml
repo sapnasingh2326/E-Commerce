@@ -1,0 +1,197 @@
+﻿@page
+@model ECommerceWeb.Pages.Metronic_Shop.MyAccountModel
+@{
+    ViewData["Title"] = "My Account";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="path/to/bootstrap.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); /* Outer shadow */
+
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            
+
+        
+            box-shadow: inset 0 0 10px #000000;  /* inner shadow */
+        
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            padding: 0;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+            nav ul li {
+                flex: 1;
+                text-align: center;
+            }
+
+                nav ul li a {
+                    display: block;
+                    padding: 10px;
+                    text-decoration: none;
+                    color: #333;
+                }
+
+                    nav ul li a:hover {
+                        background-color: #ddd;
+                    }
+
+        main section {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 8px;
+                box-sizing: border-box;
+            }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+            .btn:hover {
+                background-color: #0056b3;
+            }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h1:hover {
+            color: white;
+            background-color: brown;
+        }
+
+        h1 {
+            color: #330033;
+        }
+        body.ecommerce{
+            background-color: #ccffb3
+        }
+        .main{
+            background-color: #ddffcc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>My Account</h1>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="YourOrders"><i class="fas fa-box"></i> Your Orders</a></li>
+                <li><a href="loginsecurity"><i class="fas fa-user-shield"></i> Login Security</a></li>
+                <li><a href="prime"><i class="fas fa-crown"></i> Prime</a></li>
+                <li><a href="youraddresses"><i class="fas fa-map-marker-alt"></i> Your Addresses</a></li>
+                <li><a href="paymentoptions"><i class="fas fa-credit-card"></i> Payment Options</a></li>
+            </ul>
+        </nav>
+        <main>
+            <section id="orders">
+                <h2>Your Orders</h2>
+                <p>No orders found.</p>
+            </section>
+            <section id="login-security">
+                <h2>Login & Security</h2>
+                <form id="login-security-form" method="post">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" asp-for="Username" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" asp-for="Password" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password:</label>
+                        <input type="password" id="confirm-password" name="confirm-password" class="form-control" value="">
+                    </div>
+
+                    <button type="submit" class="btn">Update</button>
+                </form>
+            </section>
+            <a href="YourOrders">
+
+                My Orders
+            </a>
+
+            <section id="prime">
+                <a href="Prime">Prime</a>
+                <p>You are not a Prime member.</p>
+            </section>
+            <section id="addresses">
+                <a href="Your Addresses">Your Addresses</a>
+                <p>No addresses found.</p>
+            </section>
+            <section id="payment-options">
+                <a>Payment Options</a>
+                <p>No payment methods found.</p>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2024 My Company Lily </p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#login-security-form').on('submit', function (e) {
+                e.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    type: 'POST',
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (response) {
+                        alert('Form submitted successfully!');
+                        // Additional success handling logic  
+                    },
+                    error: function (error) {
+                        alert('Error submitting form!');
+                        // Additional error handling logic here
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

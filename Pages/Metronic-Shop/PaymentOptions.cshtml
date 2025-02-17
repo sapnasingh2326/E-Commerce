@@ -1,0 +1,248 @@
+﻿@page
+@model ECommerceWeb.Pages.Metronic_Shop.PaymentOptionsModel
+@{
+    ViewData["Title"] = "Payment Options";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Options</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="path/to/bootstrap.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        } */
+        h2{
+           
+           /*  background: linear-gradient(135deg, #f9d423, #ff4e50); */
+            
+            background: linear-gradient(135deg, #136a8a, #f9d423);
+            
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+            color:white;
+            text-align:center;
+            padding: 10px;
+            border-radius:10px;
+        }
+        h2:hover{
+                background-color: #9900cc;
+        }
+        header {
+            text-align: center;
+            /* margin-bottom: 20px; */
+            box-shadow: inset 0 0 10px #4CAF50; /* inner shadow */
+            color: white;
+            /* padding: 10px; */
+            background-color: #4CAF50;
+            border-radius: 15px;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            padding: 10px 0;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 0;
+            border-radius: 0 0 10px 10px;
+        }
+
+            nav ul li {
+                flex: 1;
+                text-align: center;
+            }
+
+                nav ul li a {
+                    display: block;
+                    padding: 10px;
+                    text-decoration: none;
+                    color: #333;
+                    font-weight: bold;
+                    transition: background-color 0.3s;
+                }
+
+                    nav ul li a:hover {
+                        background-color: #e0e0e0;
+                    }
+
+        .payment-card {
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+
+            .payment-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .payment-details h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .payment-details p {
+            margin: 5px 0 0;
+            color: #666;
+        }
+
+        .payment-actions button {
+            background-color: #f44336;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .payment-actions button:hover {
+                background-color: #e53935;
+            }
+
+        .payment-form {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+                color: #333;
+            }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+            .form-control:focus {
+                border-color: #4CAF50;
+                box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+            }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: #ff66d9;
+            }
+    </style>
+</head>
+<body>
+         <nav>
+            <ul>
+                <li><a href="YourOrders"><i class="fas fa-box"></i> Your Orders</a></li>
+                <li><a href="#login-security"><i class="fas fa-user-shield"></i> Login & Security</a></li>
+                <li><a href="prime"><i class="fas fa-crown"></i> Prime</a></li>
+                <li><a href="youraddresses"><i class="fas fa-map-marker-alt"></i> Your Addresses</a></li>
+                <li><a href="paymentoptions"><i class="fas fa-credit-card"></i> Payment Options</a></li>
+            </ul>
+        </nav>
+    <div class="content-wrapper">
+        
+
+            <section id="add-payment-method">
+                <h2>Add a New Payment Method</h2>
+                <form method="post" class="payment-form">
+                    <div class="form-group">
+                        <label for="CardHolderName">Card Holder Name:</label>
+                        <input type="text" id="CardHolderName" asp-for="NewPayment.CardHolderName" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="CardNumber">Card Number:</label>
+                        <input type="text" id="CardNumber" asp-for="NewPayment.CardNumber" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="ExpiryMonth">Expiry Month:</label>
+                        <input type="text" id="ExpiryMonth" asp-for="NewPayment.ExpiryMonth" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="ExpiryYear">Expiry Year:</label>
+                        <input type="text" id="ExpiryYear" asp-for="NewPayment.ExpiryYear" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Cvv">CVV:</label>
+                        <input type="text" id="Cvv" asp-for="NewPayment.Cvv" class="form-control" required />
+                    </div>
+                    <button class="btn btn-primary" type="submit" asp-page-handler="Add">Add Payment Method</button>
+                </form>
+            </section>
+            <section id="payment-methods">
+                <h2>Your Payment Methods</h2>
+                @if (Model.PaymentList.Count > 0)
+                {
+                    foreach (var payment in Model.PaymentList)
+                    {
+                        <div class="payment-card">
+                            <div class="payment-details">
+                                <h3>@payment.CardHolderName</h3>
+                                <p>**** **** **** @payment.Last4Digits</p>
+                                <p>Expires: @payment.ExpiryMonth/@payment.ExpiryYear</p>
+                            </div>
+                            <div class="payment-actions">
+                                <form method="post">
+                                    <button type="submit" asp-page-handler="Delete" asp-route-id="@payment.Id">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No payment methods found. Add a new payment method below.</p>
+                }
+            </section>
+           
+       
+    </div>
+</body>
+</html>

@@ -1,0 +1,413 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<!------BEGIN SLIDER----->
+<div class="page-slider margin-bottom-35">
+    <div id="carousel-example-generic" class="carousel slide carousel-slider">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li> 
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            @*<li data-target="#carousel-example-generic" data-slide-to="3" ></li> *@
+        </ol>
+         
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+    
+            <!-- First slide -->
+            @foreach (var item in Model.banner) 
+            {
+                <div class="item carousel-item-five@(item == Model.banner.First() ? " active" : "")" style="background: url('@item.BannerImg') center/cover;">
+                    @Html.Raw(@item.BannerHtmlContent)
+                </div>
+            }
+
+        </div>
+
+
+        <!-- Controls -->
+        <a class="left carousel-control carousel-control-shop" href="#carousel-example-generic" role="button" data-slide="prev">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+        </a>
+        <a class="right carousel-control carousel-control-shop" href="#carousel-example-generic" role="button" data-slide="next">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </a>
+    </div>
+</div>
+<!-- END SLIDER -->
+
+<div class="main">
+    <div class="container">
+        <!-- BEGIN SALE PRODUCT & NEW ARRIVALS -->
+        <div class="row margin-bottom-40">
+            <!-- BEGIN SALE PRODUCT -->
+            <div class="col-md-12 sale-product">
+                <h2>New Arrivals</h2>
+                <div class="owl-carousel owl-carousel5">
+
+                  <!---------First slide--------ProductImage---------->
+                    @foreach (var item in Model.NewArrivalproducts)
+                    {
+                        <div>
+                            <div class="product-item">
+                                <div class="pi-img-wrapper">
+                                    <input type="hidden" id="hfPid" value="@item.id" />
+                                    <img src="@item.ProductImage" class="img-responsive" alt="@item.ProductName">
+                                    <div>
+                                        <a href="@item.ProductImage" class="btn btn-default fancy box-button">Zoom</a>
+                                        <a href="" class="btn btn-default fancy box-fast-view">View</a>
+                                    </div>
+                                </div>
+                                <h3><a href="shop-item.html">@item.ProductName</a></h3>
+                                <div class="pi-price">@item.ProductPrice</div>
+                                <a href="JavaScript:;" class="btn btn-default add2cart">Add to cart</a><br /><br />
+                                <a href="JavaScript:;" class="btn btn-default add2wishlist">Add to Wishlist</a>
+                                <a href="ProductDetails?id=@item.id">ViewDetails</a>
+                                <div class="sticker sticker-sale"></div>
+                            </div>
+                        </div>
+                    }
+
+                    <div>
+                        <div class="product-item">
+                            <div class="pi-img-wrapper">
+                                <img src="~/metronic-shop-ui-master/assets/pages/img/products/model2.jpg" class="img-responsive" alt="Berry Lace Dress">
+                                <div>
+                                    <a href="~/metronic-shop-ui-master/assets/pages/img/products/model2.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                                    <a href="#product-pop-up" class="btn btn-default fancy box-fast-view">View</a>
+                                </div>
+                            </div>
+                            <h3><a href="shop-item.html">Berry Lace Dress2</a></h3>
+                            <div class="pi-price">$29.00</div>
+                            <a href="JavaScript:;" class="btn btn-default add2cart">Add to cart</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product-item">
+                            <div class="pi-img-wrapper">
+                                <img src="~/metronic-shop-ui-master/assets/pages/img/products/model6.jpg" class="img-responsive" alt="Berry Lace Dress">
+                                <div>
+                                    <a href="~/metronic-shop-ui-master/assets/pages/img/products/model6.jpg" class="btn btn-default fancy box-button">Zoom</a>
+                                    <a href="#product-pop-up" class="btn btn-default fancy box-fast-view">View</a>
+                                </div>
+                            </div>
+                            <h3><a href="shop-item.html">Berry Lace Dress2</a></h3>
+                            <div class="pi-price">$29.00</div>
+                            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product-item">
+                            <div class="pi-img-wrapper">
+                                <img src="~/metronic-shop-ui-master/assets/pages/img/products/model4.jpg" class="img-responsive" alt="Berry Lace Dress">
+                                <div>
+                                    <a href="~/metronic-shop-ui-master/assets/pages/img/products/model4.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                                    <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                                </div>
+                            </div>
+                            <h3><a href="javascript:;">Berry Lace Dress4</a></h3>
+                            <div class="pi-price">$29.00</div>
+                            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+                            <div class="sticker sticker-new"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product-item">
+                            <div class="pi-img-wrapper">
+                                <img src="~/metronic-shop-ui-master/assets/pages/img/products/model5.jpg" class="img-responsive" alt="Berry Lace Dress">
+                                <div>
+                                    <a href="~/metronic-shop-ui-master/assets/pages/img/products/model5.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                                    <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                                </div>
+                            </div>
+                            <h3><a href="shop-item.html">Berry Lace Dress5</a></h3>
+                            <div class="pi-price">$29.00</div>
+                            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product-item">
+                            <div class="pi-img-wrapper">
+                                <img src="~/metronic-shop-ui-master/assets/pages/img/products/model3.jpg" class="img-responsive" alt="Berry Lace Dress">
+                                <div>
+                                    <a href="~/metronic-shop-ui-master/assets/pages/img/products/model3.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                                    <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                                </div>
+                            </div>
+                            <h3><a href="shop-item.html">Berry Lace Dress3</a></h3>
+                            <div class="pi-price">$29.00</div>
+                            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product-item">
+                            <div class="pi-img-wrapper">
+                                <img src="~/metronic-shop-ui-master/assets/pages/img/products/model7.jpg" class="img-responsive" alt="Berry Lace Dress">
+                                <div>
+                                    <a href="~/metronic-shop-ui-master/assets/pages/img/products/model7.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                                    <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                                </div>
+                            </div>
+                            <h3><a href="shop-item.html">Berry Lace Dress3</a></h3>
+                            <div class="pi-price">$29.00</div>
+                            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END SALE PRODUCT -->
+        </div>
+        <!-- END SALE PRODUCT & NEW ARRIVALS -->
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40 ">
+            <!-- BEGIN SIDEBAR -->
+            <div class="sidebar col-md-3 col-sm-4">
+                <ul class="list-group margin-bottom-25 sidebar-menu">
+
+                    <!----------First Category------------->
+                    @foreach (var item in Model.categorys)
+                    {
+
+                        <li class="list-group-item clearfix dropdown">
+                            <a href="shop-product-list.html">
+                                <i class="fa fa-angle-right"></i>
+                                @item.Category.CategoryName
+
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="list-group-item dropdown clearfix"></li>
+
+                                @foreach (var subcatitm in item.SubCategories)
+                                {
+                                    <li><a href="ProductSubCategory?id=@subcatitm.Id"><i class="fa fa-angle-right"></i> @subcatitm.SubCategoryName</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="col-md-9 col-sm-8">
+                <h2>Three items</h2>
+                <div class="owl-carousel owl-carousel3">
+                    @foreach (var item in Model.products)
+                    {
+                        <div>
+                            <div class="product-item">
+                                <div class="pi-img-wrapper">
+                                    <img src="@item.ProductImage" class="img-responsive" alt="Berry Lace Dress">
+                                    <div>
+                                        <a href="@item.ProductImage" class="btn btn-default fancybox-button">Zoom</a>
+                                        <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                                    </div>
+                                </div>
+                                <h3><a href="shop-item.html">@item.ProductName</a></h3>
+                                <div class="pi-price">@item.ProductPrice</div>
+                                <!-- Hidden field to store Product ID -->
+                                <input type="hidden" id="hfPid" value="@item.id" />
+                                <a href="javascript:;" class="btn btn-default add2cart">Add to Cart</a><br /><br />
+                                <a href="javascript:;" class="btn btn-default add2wishlist">Add to Wishlist</a>
+                                <a href="ProductDetails?id=@item.ProductDescription">View Details</a>
+                                <div class="sticker sticker-sale"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- END CONTENT -->
+        </div>
+        <!-- END SIDEBAR & CONTENT -->
+        <!-- BEGIN TWO PRODUCTS & PROMO -->
+        <div class="row margin-bottom-35 ">
+            <!-- BEGIN TWO PRODUCTS -->
+            <div class="col-md-6 two-items-bottom-items">
+                <h2>Two items</h2>
+                <div class="owl-carousel owl-carousel2">
+
+                    <!------First slide---------Two Items----------->
+                    @foreach (var item in Model.TwoItemsproducts)
+                    {
+                        <div>
+                            <div class="product-item">
+                                <div class="pi-img-wrapper">
+
+
+                                    <img src="@item.ProductImage" class="img-responsive" alt="Berry Lace Dress">
+                                    <div>
+                                        <a href="@item.ProductImage" class="btn btn-default fancybox-button">Zoom</a>
+                                        <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                                    </div>
+                                </div>
+                                <h3><a href="shop-item.html">@item.ProductName</a></h3>
+                                <div class="pi-price">@item.ProductPrice</div>
+                                <!-- Hidden field to store Product ID -->
+                                <input type="hidden" id="hfPid" value="@item.id" />
+                                <a href="javascript:;" class="btn btn-default add2cart">Add to Cart</a><br /><br />
+                                <a href="javascript:;" class="btn btn-default add2wishlist">Add to Wishlist</a>
+                                <a href="ProductDetails?id=@item.ProductDescription">View Details</a>
+                                <div class="sticker sticker-sale"></div>
+                            </div>
+                        </div>
+                    }
+
+                    <div>
+                        <div class="product-item">
+                            <div class="pi-img-wrapper">
+                                <img src="~/metronic-shop-ui-master/assets/pages/img/products/k2.jpg" class="img-responsive" alt="Berry Lace Dress">
+                                <div>
+                                    <a href="~/metronic-shop-ui-master/assets/pages/img/products/k2.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                                    <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                                </div>
+                            </div>
+                            <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
+                            <div class="pi-price">$29.00</div>
+                            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product-item">
+                            <div class="pi-img-wrapper">
+                                <img src="~/metronic-shop-ui-master/assets/pages/img/products/k3.jpg" class="img-responsive" alt="Berry Lace Dress">
+                                <div>
+                                    <a href="~/metronic-shop-ui-master/assets/pages/img/products/k3.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                                    <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                                </div>
+                            </div>
+                            <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
+                            <div class="pi-price">$29.00</div>
+                            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product-item">
+                            <div class="pi-img-wrapper">
+                                <img src="~/metronic-shop-ui-master/assets/pages/img/products/k1.jpg" class="img-responsive" alt="Berry Lace Dress">
+                                <div>
+                                    <a href="~/metronic-shop-ui-master/assets/pages/img/products/k1.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                                    <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                                </div>
+                            </div>
+                            <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
+                            <div class="pi-price">$29.00</div>
+                            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product-item">
+                            <div class="pi-img-wrapper">
+                                <img src="~/metronic-shop-ui-master/assets/pages/img/products/k4.jpg" class="img-responsive" alt="Berry Lace Dress">
+                                <div>
+                                    <a href="~/metronic-shop-ui-master/assets/pages/img/products/k4.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                                    <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                                </div>
+                            </div>
+                            <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
+                            <div class="pi-price">$29.00</div>
+                            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product-item">
+                            <div class="pi-img-wrapper">
+                                <img src="~/metronic-shop-ui-master/assets/pages/img/products/k3.jpg" class="img-responsive" alt="Berry Lace Dress">
+                                <div>
+                                    <a href="~/metronic-shop-ui-master/assets/pages/img/products/k3.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                                    <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                                </div>
+                            </div>
+                            <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
+                            <div class="pi-price">$29.00</div>
+                            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END TWO PRODUCTS -->
+            <!-- BEGIN PROMO -->
+            <div class="col-md-6 shop-index-carousel">
+                <div class="content-slider">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="~/metronic-shop-ui-master/assets/pages/img/index-sliders/slide1.jpg" class="img-responsive" alt="Berry Lace Dress">
+                            </div>
+                            <div class="item">
+                                <img src="~/metronic-shop-ui-master/assets/pages/img/index-sliders/slide2.jpg" class="img-responsive" alt="Berry Lace Dress">
+                            </div>
+                            <div class="item">
+                                <img src="~/metronic-shop-ui-master/assets/pages/img/index-sliders/slide3.jpg" class="img-responsive" alt="Berry Lace Dress">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PROMO -->
+        </div>
+        <!-- END TWO PRODUCTS & PROMO -->
+    </div>
+</div>
+
+
+
+<!--------BEGIN BRANDS--------->
+<div class="brands">
+    <div class="container">
+        <!-- First slide -->
+
+        <div class="owl-carousel owl-carousel6-brands">
+
+            @foreach (var item in Model.brand)
+            {
+                <a href="shop-product-list.html"><img src="@item.BrandLogo" alt="canon" title="canon"></a>
+            }
+
+
+        </div>
+    </div>
+</div>
+<!-- END BRANDS -->
+<!-- BEGIN STEPS -->
+<div class="steps-block steps-block-red">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 steps-block-col">
+                <i class="fa fa-truck"></i>
+                <div>
+                    <h2>Free shipping</h2>
+                    <em>Express delivery withing 3 days</em>
+                </div>
+                <span>&nbsp;</span>  
+            </div>
+            <div class="col-md-4 steps-block-col">
+                <i class="fa fa-gift"></i>
+                <div>
+                    <h2>Daily Gifts</h2>
+                    <em>3 Gifts daily for lucky customers</em>
+                </div>
+                <span>&nbsp;</span>
+            </div>
+            <div class="col-md-4 steps-block-col">
+                <i class="fa fa-phone"></i>
+                <div>
+                    <h2>477 505 8877</h2>
+                    <em>24/7 customer care available</em>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END STEPS -->

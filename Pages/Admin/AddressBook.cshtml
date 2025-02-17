@@ -1,0 +1,300 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.AddressBookModel
+@{
+    ViewBag.Title = "Address Book";
+    Layout = "~/Views/Shared/_MetronicShop.cshtml";
+}
+@* <div class="margine-topp">
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="breadcrumbs-main">
+                <ol class="breadcrumb is-flex">
+                    <li><a asp-action="Index">Home</a></li>
+                    <li class="active">My Address</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!--end-breadcrumbs-->
+    <section class="Address">
+        <div class="container">
+            <header>
+                <div class="Address__heading">
+                    <h2 class="is-size-3 has-text-weight-bold">Select the Address</h2>
+                </div>
+            </header>
+            <div class="text-right">
+                <a asp-action="UpsertAddress" class="btn btn-primary my-2"><i class="fas fa-plus"></i> &nbsp;Add New Address</a>
+            </div>
+
+            @foreach (var address in Model.addressBookList)
+            {
+                if (address.Id != 0)
+                {
+                    <partial name="_IndividualAddress" model="address" />
+                }
+            }
+        </div>
+    </section>
+</div> *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <div class="content-wrapper">
+    <section class="content-header mt-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Create Address Book Entry</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-page="index">Home</a></li>
+                <li class="breadcrumb-item active">Address Book</li>
+            </ol>
+        </div>
+    </section>
+
+    <h2>Address Book</h2>
+
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="AddressBook.FullName"></label>
+            <input asp-for="AddressBook.FullName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="AddressBook.AddressLine1"></label>
+            <input asp-for="AddressBook.AddressLine1" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="AddressBook.AddressLine2"></label>
+            <input asp-for="AddressBook.AddressLine2" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="AddressBook.City"></label>
+            <input asp-for="AddressBook.City" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="AddressBook.State"></label>
+            <input asp-for="AddressBook.State" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="AddressBook.Country"></label>
+            <input asp-for="AddressBook.Country" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="AddressBook.PostalCode"></label>
+            <input asp-for="AddressBook.PostalCode" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3>Address Book Datalist</h3>
+        </div>
+        <div class="card-body">
+            <table id="addressBookTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Full Name</th>
+                        <th>Address Line 1</th>
+                        <th>Address Line 2</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.datalist.Any())
+                    {
+                        foreach (var item in Model.datalist)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.FullName</td>
+                                <td>@item.AddressLine1</td>
+                                <td>@item.AddressLine2</td>
+                                <td>
+                                <td class="mr-5">
+                                    <a asp-page="AddressBook" asp-route-id="@item.Id" class="btn btn-success">EDIT</a>
+
+
+                                    <button asp-page-handler="Delete" asp-route-id="@item.Id"
+                                            onclick="return confirm('Are you sure you want to DELETE? ')" class="btn btn-danger">
+                                        DELETE
+                                    </button>
+
+                                </td>
+
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+
+                        <tr>No data found</tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+   </div>
+</div>
+
+
+
+
+ *@
+
+
+
+
+
+
+
+
+
+
+
+    @* <div class="card mt-4">
+        <div class="card-body">
+            <form method="post">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="addressBook.FullName" class="control-label"></label>
+                        <input asp-for="addressBook.FullName" class="form-control" />
+                        <span asp-validation-for="addressBook.FullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="addressBook.AddressLine1" class="control-label"></label>
+                        <input asp-for="addressBook.AddressLine1" class="form-control" />
+                        <span asp-validation-for="addressBook.AddressLine1" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="addressBook.AddressLine2" class="control-label"></label>
+                        <input asp-for="addressBook.AddressLine2" class="form-control" />
+                        <span asp-validation-for="addressBook.AddressLine2" class="text-danger"></span>
+                    </div>
+                    <!-- Add other fields similarly -->
+                </div>
+
+            
+                  <!-- /.card-body -->
+            <div class="text-center mt-3">
+
+              @if (Model.addressBook.Id != 0)
+             {
+              <button type="submit" class="btn btn-info">UPDATE</button>
+             }
+              else
+             {
+              <button type="submit" class="btn btn-info">SUBMIT</button>
+
+             }
+            </div>
+
+          </form>
+
+
+        </div> 
+    </div>
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3>Address Book Datalist</h3>
+        </div>
+        <div class="card-body">
+            <table id="addressBookTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Full Name</th>
+                        <th>Address Line 1</th>
+                        <th>Address Line 2</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.datalist.Any())
+                    {
+                        foreach (var item in Model.datalist)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.FullName</td>
+                                <td>@item.AddressLine1</td>
+                                <td>@item.AddressLine2</td>
+                                <td>
+                                <td class="mr-5">
+                                    <a asp-page="AddressBook" asp-route-id="@item.Id" class="btn btn-success">EDIT</a>
+
+
+                                    <button asp-page-handler="Delete" asp-route-id="@item.Id"
+                                            onclick="return confirm('Are you sure you want to DELETE? ')" class="btn btn-danger">
+                                        DELETE
+                                    </button>
+
+                                </td>
+
+                                
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+
+                        <tr>No data found</tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div> *@

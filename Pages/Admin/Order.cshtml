@@ -1,0 +1,535 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.OrderModel
+@{
+
+}
+<!-------Sophisticated and Elegant------->
+
+<style>
+    .form {
+        padding: 20px;
+        background: #fae4e3;
+        border: 2px solid #abff19;
+    }
+    /* General Modal Styles */
+    .modal-content {
+        background: linear-gradient(135deg, #d1c4e9 0%, #ede7f6 100%);
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+        background: #d1c4e9 0%;
+        color: white;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .modal-title {
+        font-weight: bold;
+        color: black;
+    }
+
+    .modal-footer {
+        background: rgba(94, 53, 177, 0.2);
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+
+    .btn-secondary {
+        background-color: darkred;
+        border-color: #d1c4e9;
+    }
+
+        .btn-secondary:hover {
+            background-color: #4527a0;
+            border-color: green;
+        }
+
+    .modal-body {
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(209, 196, 233, 0.1);
+    }
+
+    .table-striped tbody tr:hover {
+        background-color: #7e57c2;
+    }
+
+    .modal-body {
+        background: #ffccff; /* linear-gradient(45deg, #D1C4E9, #D1C4E9, #D1C4E9); */
+    }
+
+        .modal-body:hover {
+            background-color: #7e57c2;
+        }
+</style>
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <!-- 1st container fluid start-->
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Order Details @* Page *@</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-page="index">Home</a></li>
+                        <li class="breadcrumb-item active">DataTables</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- / 1st container-fluid ends-->
+    </section>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- Countrise validation -->
+                <div class="card card-primary card-outline card-info">
+                    @* <h5 class="ml-3 ">Order Details</h5> *@
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form method="post">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>CustomerId:</label>
+                                        <input type="text" asp-for="order.CustomerId" class="form-control" placeholder="CustomerId" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Order Number</label>
+                                        <input type="text" asp-for="order.OrderNumber" class="form-control" placeholder="Order Number" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Order Date</label>
+                                        <input type="text" asp-for="order.OrderDate" class="form-control" placeholder="Order Date" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Order Status</label>
+                                        <input type="text" asp-for="order.OrderStatus" class="form-control" placeholder="Order Status" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-3">
+                                @if (Model.order.Id != 0)
+                                {
+                                    <button type="submit" class="btn btn-info">UPDATE</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-info">SUBMIT</button>
+                                }
+                            </div>
+                        </div>
+                    </form>
+
+
+
+                </div>
+
+
+
+
+                <form method="post">
+
+                    <div class="card-body card card-outline card-success pl-1">
+                        <div class="card-header">
+
+                            <h3 class="mr-2">Order Datalist</h3>
+                        </div>
+
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr class="p-5 my-5 bg-dark text-white">
+                                    <th scope="col">Id</th>
+                                    <th scope="col">CustomerId</th>
+                                    <th scope="col">OrderNumber</th>
+                                    <th scope="col">OrderDate</th>
+                                    <th scope="col">OrderStatus</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Details</th> <!-- New column for details button -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.datalist.Count() > 0)
+                                {
+                                    foreach (var item in Model.datalist)
+                                    {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td>@item.CustomerId</td>
+                                            <td>@item.OrderNumber</td>
+                                            <td>@item.OrderDate</td>
+                                            <td>@item.OrderStatus</td>
+                                            <td class="mr-5">
+                                                <a asp-page="Order" asp-route-id="@item.Id" class="btn btn-success">EDIT</a>
+                                                <button asp-page-handler="Delete" asp-route-id="@item.Id"
+                                                        onclick="return confirm('Are you sure you want to DELETE?')" class="btn btn-danger">
+                                                    DELETE
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <a asp-page="invoicePrint" asp-route-id="@item.Id" class="btn btn-success">Invoice</a>
+                                                <a class="btn btn-info" onclick="showOrderDetails(@item.Id)"><i class="fas fa-eye" style="color:white;"></i>Show Details</a>
+                                            </td> <!-- Details button -->
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr><td colspan="7">No data found</td></tr>
+                                }
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="orderDetailsModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="orderDetailsContent">Loading...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
+
+
+<script>
+    function showOrderDetails(orderId) {
+        // Show the modal
+        $('#orderDetailsModal').modal('show');
+        // Clear previous content
+        $('#orderDetailsContent').html('Loading...');
+
+        // Fetch order details from the API
+        $.ajax({
+            url: '/Api/GetOrderDetailsForPopup?OrderId=' + orderId,
+            type: 'GET',
+            success: function (data) {
+                // Format and display the order details
+                let details = '<div class="container">';
+
+                // Customer and Order Information
+                details += '<div class="row">';
+                details += '<div class="col-md-6">';
+                details += '<h5>Customer Details</h5>';
+                details += '<p>Customer ID: ' + data.customerId + '</p>';
+                details += '<p>Order ID: ' + data.id + '</p>';
+                details += '</div>';
+                details += '<div class="col-md-6">';
+                details += '<h5>Order Details</h5>';
+                details += '<p>Order Date: ' + data.orderDate + '</p>';
+                details += '<p>Order Number: ' + data.orderNumber + '</p>';
+                details += '<p>Order Status: ' + data.orderStatus + '</p>';
+                details += '</div>';
+                details += '</div>';
+
+                // Order Items
+                details += '<h5>Order Items</h5>';
+                details += '<table class="table table-striped">';
+                details += '<thead>';
+                details += '<tr>';
+                details += '<th>Product</th>';
+                details += '<th>Product ID</th>';
+                details += '<th>Quantity</th>';
+                details += '<th>Price</th>';
+                details += '</tr>';
+                details += '</thead>';
+                details += '<tbody>';
+                data.orderItems.forEach(item => {
+                    details += '<tr>';
+                    details += '<td>' + item.productName + '</td>';
+                    details += '<td>' + item.productId + '</td>';
+                    details += '<td>' + item.quantity + '</td>';
+                    details += '<td>' + item.price + '</td>';
+                    details += '</tr>';
+                });
+                details += '</tbody>';
+                details += '</table>';
+
+                details += '</div>';
+                $('#orderDetailsContent').html(details);
+            },
+            error: function (error) {
+                $('#orderDetailsContent').html('Error loading details');
+            }
+        });
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Page</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .view-details-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: blueviolet;
+            color: white;
+        }
+
+            .view-details-btn i {
+                margin-right: 5px;
+            }
+
+        .modal-content {
+            border-radius: 10px;
+        }
+
+        .modal-header {
+            background-color: darkred;
+            color: white;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-warning {
+            background-color: forestgreen;
+            border-color: forestgreen;
+        }
+
+        .btn-danger {
+            background-color: red;
+            border-color: red;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+        .btn-secondary {
+            background-color:purple;
+            border-color: darkred;
+        }
+        div.modal-body {
+            background-color:linen;
+            color:black;
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Order Page</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="index">Home</a></li>
+                            <li class="breadcrumb-item active">DataTables</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Order Details Modal -->
+                    <div class="modal fade" id="orderDetailsModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="modalCustomerId">CustomerId:</label>
+                                            <input type="text" id="modalCustomerId" class="form-control" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modalOrderNumber">Order Number:</label>
+                                            <input type="text" id="modalOrderNumber" class="form-control" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modalOrderDate">Order Date:</label>
+                                            <input type="text" id="modalOrderDate" class="form-control" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modalOrderStatus">Order Status:</label>
+                                            <input type="text" id="modalOrderStatus" class="form-control" readonly>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-outline card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Order Datalist</h3>
+                        </div>
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>CustomerId</th>
+                                        <th>OrderNumber</th>
+                                        <th>OrderDate</th>
+                                        <th>OrderStatus</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.datalist.Count() > 0)
+                                    {
+                                        foreach (var item in Model.datalist)
+                                        {
+                                            <tr>
+                                                <td>@item.Id</td>
+                                                <td>@item.CustomerId</td>
+                                                <td>@item.OrderNumber</td>
+                                                <td>@item.OrderDate</td>
+                                                <td>@item.OrderStatus</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-info view-details-btn" data-toggle="modal" data-target="#orderDetailsModal"
+                                                            onclick="viewDetails('@item.CustomerId', '@item.OrderNumber', '@item.OrderDate', '@item.OrderStatus')">
+                                                        <i class="fas fa-eye"></i> View Details
+                                                    </button>
+                                                    <a href="Order/@item.Id" class="btn btn-success">EDIT</a>
+                                                    <button class="btn btn-danger" onclick="return confirm('Are you sure you want to DELETE?')">DELETE</button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="6" class="text-center">No data found</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function viewDetails(CustomerId, OrderNumber, OrderDate, OrderStatus) {
+            document.getElementById('modalCustomerId').value = CustomerId;
+            document.getElementById('modalOrderNumber').value = OrderNumber;
+            document.getElementById('modalOrderDate').value = OrderDate;
+            document.getElementById('modalOrderStatus').value = OrderStatus;
+            $('#orderDetailsModal').modal('show');
+        }
+    </script>
+</body>
+</html>*@

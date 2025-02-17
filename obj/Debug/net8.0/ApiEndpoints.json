@@ -1,0 +1,144 @@
+[
+  {
+    "ContainingType": "ECommerceWeb.ApiController.APIController",
+    "Method": "Dashboard",
+    "RelativePath": "Api/Dashboard",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceWeb.ApiController.APIController",
+    "Method": "GetAllCities",
+    "RelativePath": "Api/GetAllCities",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CountryId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceWeb.ApiController.APIController",
+    "Method": "GetAllSubCat",
+    "RelativePath": "Api/GetAllSubCat",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CategoryId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceWeb.ApiController.APIController",
+    "Method": "GetOrderDetails",
+    "RelativePath": "Api/GetOrderDetails",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "OrderId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceWeb.ApiController.APIController",
+    "Method": "GetOrderDetailsForPopup",
+    "RelativePath": "Api/GetOrderDetailsForPopup",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "OrderId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceWeb.ApiController.APIController",
+    "Method": "GetOrderItemsListForPopup",
+    "RelativePath": "Api/GetOrderItemsListForPopup",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "OrderId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceWeb.ApiController.APIController",
+    "Method": "GetStates",
+    "RelativePath": "Api/GetStates",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "countryId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceWeb.ApiController.APIController",
+    "Method": "GetYourOrdersForPopup",
+    "RelativePath": "Api/GetYourOrdersForPopup",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "YourOrderId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceWeb.ApiController.APIController",
+    "Method": "Logout",
+    "RelativePath": "Api/Logout",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerceWeb.ApiController.APIController",
+    "Method": "SignOut",
+    "RelativePath": "Api/SignOut",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

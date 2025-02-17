@@ -1,0 +1,696 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.DashboardModel
+@{
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+    }
+
+    .card-title {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    .card-tools .nav-pills .nav-item .nav-link {
+        color: #007bff;
+    }
+
+        .card-tools .nav-pills .nav-item .nav-link.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+    .chart-container {
+        position: relative;
+        height: 250px;
+    }
+
+    /* Adjust the size of the chart */
+    #chartContainer {
+        width: 100%;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    /* Adding transition effects */
+    .small-box {
+        transition: all 2s ease;
+    }
+
+    .small-box:hover {
+       transform: scale(1.05); /* Slightly enlarges the box */
+    }
+
+     .small-box .icon {
+         transition: all 2s ease;
+     }
+
+      .small-box:hover .icon {
+         transform: rotate(360deg); /* Rotate the icon */
+      }
+
+     .small-box-footer {
+        transition: all 2s ease;
+        cursor: pointer; /* Pointer cursor on hover */
+     }
+
+       .small-box-footer:hover {
+            color: #fff !important; /* Ensuring text color change */
+            background-color: rgba(0, 0, 0, 0.5); /* Adding a semi-transparent background */
+       }
+
+            .small-box-footer:hover i {
+                transform: translateX(5px); /* Move the arrow slightly to the right */
+            }
+
+    /* Additional styles to ensure the pointer cursor on hover */
+    .small-box:hover {
+        cursor: pointer;
+    }
+
+    .small-box:hover{
+        background-color:navy; /* To Change the Box Color */
+        color:deeppink;
+    }
+    
+</style>
+
+
+<!----Calander--------->
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Dashboard</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard v1</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>@Model.dashboardVM.Product</h3>
+                            <p>Total Product</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-shopping-cart"></i> <!-- Shopping cart icon -->
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>@Model.dashboardVM.MonthlyOrder<sup style="font-size: 20px"></sup></h3>
+                            <p>Orders</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-calendar-day"></i> <!-- Calendar icon for Daily Sales -->
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div> 
+                </div>
+                <!-- ./col -->
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>@Model.dashboardVM.Coupons</h3>
+                            <p>Coupons</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tags"></i> <!-- Coupon icon -->
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>@Model.dashboardVM.City</h3>
+                            <p>City</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-city"></i> <!-- City skyline icon -->
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-dark">
+                        <div class="inner">
+                            <h3>@Model.dashboardVM.Helpers</h3>
+                            <p>Helpers</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-hands-helping"></i> <!-- Hands helping icon for Helpers -->
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-pink">
+                        <div class="inner">
+                            <h3>@Model.dashboardVM.Category</h3>
+                            <p>Category</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-folder"></i> <!-- Folder icon for categories -->
+                        </div>
+                        <a href="@Model.dashboardVM.Category" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-purple">
+                        <div class="inner">
+                            <h3>@Model.dashboardVM.Brand</h3>
+                            <p>Brand</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-caret-down"></i> <!-- Nested arrows icon for subcategories -->
+                        </div>
+                        <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-teal">
+                        <div class="inner">
+                            <h3>@Model.dashboardVM.SubCategory</h3>
+                            <p>Subcategory</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-trademark"></i> <!-- Trademark icon for brand -->
+                        </div>
+                        <a href="@Model.dashboardVM.Brand" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+
+                <!-- Uncommented this block as per original code -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-light-yellow">
+                        <div class="inner">
+                            <h3>@Model.dashboardVM.Price</h3>
+                            <p>Product Price</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-box"></i> <!-- Box icon for product -->
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+
+                <!-- Container for the chart -->
+                <div class="col-lg-9 col-12">
+                    <div id="chartContainer">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                </div>
+                <!-- ./col -->
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <!-- Left col -->
+                <section class="col-lg-6 connectedSortable">
+                    <!-- Custom tabs (Charts with tabs)-->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                @Model.dashboardVM.OrderItem
+                                <i class="fas fa-chart-pie mr-1"></i>
+                                Monthly Orders
+                            </h3>
+                            <div class="card-tools">
+                                <ul class="nav nav-pills ml-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content p-0">
+                                <!-- Area chart -->
+                                <div class="chart tab-pane active" id="revenue-chart">
+                                    <div class="chart-container">
+                                        <canvas id="areaChart"></canvas>
+                                    </div>
+                                </div>
+                                <!-- Donut chart -->
+                                <div class="chart tab-pane" id="sales-chart">
+                                    <div class="chart-container">
+                                        <canvas id="donutChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+
+                    <!-- DIRECT CHAT -->
+                    <div class="card direct-chat direct-chat-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">@Model.dashboardVM.Brand</h3>
+                            <div class="card-tools">
+                                <span title="3 New Messages" class="badge badge-primary">3</span>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
+                                    <i class="fas fa-comments"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                           
+                        </div>
+                    </div>
+                    <!--/.direct-chat -->
+                </section>
+                <!-- /.Left col -->
+                <!-- Right Column -->
+                <!-- Right Column -->
+                <section class="col-lg-6 connectedSortable">
+                    <!-- Calendar -->
+                    <div class="card bg-gradient-success shadow-lg">
+                        <div class="card-header border-0 d-flex justify-content-between align-items-center">
+                            <h3 class="card-title text-white">
+                                <i class="far fa-calendar-alt"></i> Calendar - <span id="currentDate"></span>
+                            </h3>
+                            <div class="card-tools">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-bars"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a href="#" class="dropdown-item">Add New Event</a>
+                                        <a href="#" class="dropdown-item">Clear Events</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="#" class="dropdown-item">View Calendar</a>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body pt-0">
+                            <div id="calendar" style="width: 100%; min-height: 400px;"></div>
+                        </div>
+                        
+                    </div>
+                    <!-- /.card -->
+                </section>
+                <!-- /.right col -->
+
+                <script>
+                    // Display current date
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const currentDate = new Date();
+                        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                        document.getElementById('currentDate').textContent = currentDate.toLocaleDateString(undefined, options);
+                    });
+                </script>
+
+                <!-- /.right col -->
+
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!------------Product Price-------------------->
+<script>
+    const ctx = document.getElementById('priceChart').getContext('2d');
+    const priceChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            datasets: [{
+                label: 'Product Price',
+                data: [12, 19, 3, 5, 2, 3], // Example data
+                color: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 2,
+                
+                pointBackgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'rgba(255, 99, 132, 1)'
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+
+<!---------------Monthly Orders------------------->
+<script>
+        // Data for Area Chart
+        const areaChartData = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'Monthly Orders',
+                backgroundColor: 'rgba(60,141,188,0.7)',
+                borderColor: 'rgba(60,141,188,1)',
+                pointRadius: false,
+                pointColor: '#3b8bba',
+                pointStrokeColor: 'rgba(60,141,188,1)',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(60,141,188,1)',
+                data: [28, 48, 40, 19, 86, 27, 90]
+            }]
+        };
+
+        // Options for Area Chart
+        const areaChartOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        };
+
+        // Create Area Chart
+        const areaChartCanvas = document.getElementById('areaChart').getContext('2d');
+        new Chart(areaChartCanvas, {
+            type: 'line',
+            data: areaChartData,
+            options: areaChartOptions
+        });
+
+        // Data for Donut Chart
+        const donutData = {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+            }]
+        };
+
+        // Options for Donut Chart
+        const donutOptions = {
+            maintainAspectRatio: false,
+            responsive: true
+        };
+
+        // Create Donut Chart
+        const donutChartCanvas = document.getElementById('donutChart').getContext('2d');
+        new Chart(donutChartCanvas, {
+            type: 'doughnut',
+            data: donutData,
+            options: donutOptions
+        });
+    </script>
+<!-- Call Log -->
+<div class="row mb-4">
+    <div class="col-lg-8 col-md-7 col-sm-12">
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h3 class="card-title">Call Log </h3>
+            </div>
+            <div class="card-body">
+                <ul class="list-group" id="callLog">
+                    <!-- Call entries will be dynamically generated here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Call Controls -->
+    <div class="col-lg-4 col-md-5 col-sm-12">
+        <div class="small-box bg-primary shadow-lg text-center">
+            <div class="inner">
+                <h3>Calls</h3>
+                <p>Manage Calls</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-phone"></i>
+            </div>
+            <a href="#" class="small-box-footer" data-toggle="modal" data-target="#callModal">Make a Call <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal for Making Calls -->
+<div class="modal fade" id="callModal" tabindex="-1" role="dialog" aria-labelledby="callModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="callModalLabel">Make a Call</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="callForm">
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="text" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Call</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Additional dashboard content -->
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-lg-9 col-12">
+            <div class="card shadow-lg border-light">
+                <div class="card-header bg-gradient text-white d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">@Model.dashboardVM.DayOfWeek</h3>
+                    <select id="daySelector" class="form-select" style="width: 150px;">
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                        <option value="Sunday">Sunday</option>
+                    </select>
+                </div>
+                <div class="card-body">
+                    <canvas id="priceChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border-radius: 15px;
+        transition: transform 0.3s;
+        background: #fff; /* White background for card */
+    }
+
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+    
+
+    .form-select {
+        border-radius: 20px;
+        height: 40px;
+        border: 2px solid #007bff; /* Blue border */
+        transition: border-color 0.3s;
+    }
+
+        .form-select:hover {
+            border-color: #00aaff; /* Change border color on hover */
+        }
+
+        .form-select:focus {
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Focus effect */
+        }
+
+    /* Optional: Custom styles for canvas */
+    canvas {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px; /* Rounded corners for canvas */
+        border: 2px solid #e0e0e0; /* Light gray border */
+    }
+</style>
+
+<script>
+    // JavaScript to handle day selection (optional)
+    document.getElementById("daySelector").addEventListener("change", function () {
+        const selectedDay = this.value;
+        // Logic to update the chart based on the selected day
+        console.log("Selected Day:", selectedDay);
+    });
+</script>
+
+<!-- Additional small boxes omitted for brevity -->
+
+
+<!-- Left Column -->
+<div class="row">
+    <section class="col-lg-6 connectedSortable">
+        <!-- Existing charts and direct chat omitted for brevity -->
+    </section>
+
+    <!-- Right Column -->
+    <section class="col-lg-6 connectedSortable">
+        <!-- Existing calendar and content omitted for brevity -->
+    </section>
+</div>
+       
+
+<script>
+    // Display current date
+    document.addEventListener('DOMContentLoaded', function () {
+        const currentDate = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').textContent = currentDate.toLocaleDateString(undefined, options);
+    });
+
+    // Handle call log
+    const callLog = [];
+    const callLogElement = document.getElementById('callLog');
+
+    function addCallToLog(type, number) {
+        const li = document.createElement('li');
+        li.className = 'list-group-item d-flex justify-content-between align-items-center';
+        li.innerHTML = `${number} <span class="badge badge-${type === 'incoming' ? 'success' : 'danger'}">${type.charAt(0).toUpperCase() + type.slice(1)}</span>`;
+        callLogElement.appendChild(li);
+        callLog.push({ type, number });
+    }
+
+    // Call form submission
+    document.getElementById('callForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const phoneNumber = document.getElementById('phoneNumber').value;
+        addCallToLog('outgoing', phoneNumber);
+        $('#callModal').modal('hide'); // Hide the modal after making a call
+        document.getElementById('callForm').reset(); // Reset form
+    });
+
+    // Simulate receiving a call
+    setTimeout(() => {
+        const incomingNumber = '123-456-7890';
+        addCallToLog('incoming', incomingNumber);
+    }, 5000); // Simulates receiving a call after 5 seconds
+</script>
+
+<script>
+    // Display current date
+    document.addEventListener('DOMContentLoaded', function () {
+        const currentDate = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').textContent = currentDate.toLocaleDateString(undefined, options);
+    });
+</script>

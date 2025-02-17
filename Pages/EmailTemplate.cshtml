@@ -1,0 +1,139 @@
+﻿@page
+@model ECommerceWeb.Pages.EmailTemplateModel
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Website</title>
+
+    <style>
+        /* Email Template Styles */
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .email-container {
+            padding: 40px 0;
+            background: linear-gradient(120deg, #f3f4f6, #cfd9df);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .email-content {
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-top: 6px solid #f39c12;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #722F37;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #2c3e50;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .email-content p strong {
+            color: #2980b9;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+
+        }
+
+            .button:hover {
+                background-color: #2980b9;
+            }
+
+        .email-footer {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+            .email-footer a {
+                color: #e74c3c;
+                text-decoration: none;
+            }
+
+                .email-footer a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+    <div class="email-container">
+        <div class="email-content">
+             <input type="hidden" asp-for="registration.Id" />
+            <h1>Welcome @Model.registration.UserName!</h1>
+            <p>Thank you for registering with us. We're thrilled to have you on board!</p>
+            <p><strong>Your registered email:</strong> @Model.registration.Email </p>
+            <p>If you have any questions, feel free to contact us anytime.</p>
+            @* <a href="https://www.example.com" class="button">Explore Now</a> *@
+                <a href="#" class="button" onclick="exploreNow()">Explore Now</a>
+
+                <script>
+                    function exploreNow() {
+                        // Add your functionality here
+                        alert("Button clicked to explore Now");
+                    }
+
+                    function 
+
+                </script>
+
+
+
+
+        </div>
+       @*  <div class="email-footer">
+            <p>&copy; 2024 Your Company. All rights reserved. style="background-color:#dbff99; color: #660066;"</p>
+            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div> *@
+    </div>
+    </div>
+</body>
+</html>
+
+
+             @* <!-- Start Form -->
+                <form method="post">
+                    <!-- Include the hidden ID field -->
+                    <input type="hidden" asp-for="registration.Id" />
+
+                    <h1>Welcome @Model.registration.UserName!</h1>
+                    <p>Thank you for registering with us. We're thrilled to have you on board!</p>
+                    <p><strong>Your registered email:</strong> @Model.registration.Email</p>
+                    <p>If you have any questions, feel free to contact us anytime.</p>
+                    <!-- Button within the form -->
+                    <button type="submit" class="button">Submit</button>
+                </form>
+                <!-- End Form --> *@

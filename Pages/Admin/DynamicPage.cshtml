@@ -1,0 +1,193 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.DynamicPageModel
+@{
+    ViewBag.Title = "DynamicPage";
+}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>DynamicPages</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-page="index">Home</a></li>
+                        <li class="breadcrumb-item active">DataTables</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline card-info">
+                    <h5 class="ml-3">DynamicPage</h5>
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="dynamicPage.PageId" />
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="ml-2">PageName</label>
+                                    <input type="text" asp-for="dynamicPage.PageName" class="form-control" placeholder="PageName" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="ml-2">PageUrl</label>
+                                    <input type="text" asp-for="dynamicPage.PageUrl" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="ml-2">UpdatedOn</label>
+                                    <input type="date" asp-for="dynamicPage.UpdatedOn" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label class="ml-2">Page Html Content</label>
+                                    <textarea id="summernote" asp-for="dynamicPage.PageContent"></textarea>
+                                </div>
+                            </div>
+                            <div class="text-center mt-3">
+                                @if (Model.dynamicPage.PageId != 0)
+                                {
+                                    <button type="submit" class="btn btn-info">UPDATE</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-info">SUBMIT</button>
+                                }
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <form method="post">
+                    <div class="card-body card card-outline card-success pl-1">
+                        <div class="card-header">
+                            <h3 class="mr-2">DynamicPage Name Datalist</h3>
+                        </div>
+                        <table id="example1" class="table table-bordered table-striped" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <colgroup>
+                                        <col span="2" style="background-color: #D6EEEE">
+                                        <col span="1" style="background-color: pink">
+                                        <col span="2" style="background-color: lightgreen">
+                                    </colgroup>
+                                    <th>PageId</th>
+                                    <th>PageName</th>
+                                    <th>PageUrl</th>
+                                    <th>PageContent</th>
+                                    <th>UpdatedOn</th>
+                                    <th>PageImage</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.datalist.Count() > 0)
+                                {
+                                    foreach (var item in Model.datalist)
+                                    {
+                                        <tr>
+                                            <td>@item.PageId</td>
+                                            <td>@item.PageName</td>
+                                            <td>@item.PageUrl</td>
+                                            <td>@item.PageContent</td>
+                                            <td>@item.UpdatedOn</td>
+                                            <td><img src="@item.PageUrl" width="50" height="50" alt="DynamicPage Image"></td>
+                                            <td class="mr-5">
+                                                <a asp-page="dynamicPage" asp-route-id="@item.PageId" class="btn btn-success">EDIT</a>
+                                                <button asp-page-handler="Delete" asp-route-id="@item.PageId"
+                                                        onclick="return confirm('Are you sure you want to DELETE?')" class="btn btn-danger">
+                                                    DELETE
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr><td colspan="6" class="text-center">No data found</td></tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@* <script>
+    function saveOrUpdateDynamicPage() {
+        const dynamicPage = {
+            PageId: $('#PageId').val(),
+            PageName: $('#PageName').val(),
+            PageUrl: $('#PageUrl')[0].files[0], // Handle file uploads separately
+            UpdatedOn: $('#UpdatedOn').val(),
+            PageContent: $('#PageContent').val()
+        };
+
+        let url = "/api/DynamicPageApi";
+        let method = "POST";
+
+        if (dynamicPage.PageId) {
+            url += `/${dynamicPage.PageId}`;
+            method = "PUT";
+        }
+
+        const formData = new FormData();
+        formData.append("PageId", dynamicPage.PageId);
+        formData.append("PageName", dynamicPage.PageName);
+        formData.append("PageUrl", dynamicPage.PageUrl);
+        formData.append("UpdatedOn", dynamicPage.UpdatedOn);
+        formData.append("PageContent", dynamicPage.PageContent);
+
+        $.ajax({
+            url: url,
+            type: method,
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function () {
+                alert("Page saved successfully!");
+                // Optionally reload the list of DynamicPages
+            },
+            error: function () {
+                alert("Error saving page.");
+            }
+        });
+    }
+</script>
+ *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

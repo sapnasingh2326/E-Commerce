@@ -1,0 +1,756 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.CreateInvoiceModel
+
+
+@{
+    ViewData["Title"] = "Create Invoice";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Invoice</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center text-primary mb-4">Create Invoice</h2>
+        <h4 class="text-purple font-weight-bold">Purchase Details</h4>
+        <hr />
+        <div class="content-wrapper">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Item(s)</th>
+                            <th>Details</th>
+                            <th>Amount (Tax Inc)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderProductList)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    <img src="~/images/172f5477-a290-44a4-834e-e169f4cea965_images.png" class="img-thumbnail" style="height: 60px; width: 60px;" alt="Product Image" />
+                                </td>
+                                <td>
+                                    <table class="table table-borderless">
+                                        <tr>
+                                            <td><strong>Product Name:</strong></td>
+                                            <td>@item.ProductName</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Product UOM:</strong></td>
+                                            <td>@item.CatgProductName</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Quantity:</strong></td>
+                                            <td>@item.Quantity</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Price:</strong></td>
+                                            <td>@item.Price</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="text-center font-weight-bold text-primary">@item.SubPrice</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-end mt-3">
+                <h5 class="mr-3">Total Amount:</h5>
+                <h5 class="text-info font-weight-bold">@Model.OrderProductList.Sum(x => x.SubPrice)</h5>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <style>
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+}
+h6{
+        color: #618a54;
+}
+h2{
+        color: #db5c7e;
+}
+/* Invoice Page Header */
+.content-header h1 {
+    font-size: 2rem;
+        color: #4e73df;
+}
+.content-header h1:hover{
+    color:green;
+}
+
+.breadcrumb-item a {
+    color: #4e73df;
+}
+
+.breadcrumb-item.active {
+    color: #858796;
+}
+
+/* Invoice Form Styles */
+ h5 {
+    color: #4e73df;
+}
+
+.form-control {
+    border-radius: 0.25rem;
+}
+
+.form-label {
+    font-weight: 600;
+}
+
+/* Table Styles */
+.table {
+    background-color: #fff;
+    border-radius: 0.25rem;
+}
+
+.table-bordered {
+    border: 1px solid #e3e6f0;
+}
+
+.table-light {
+    background-color: #f8f9fc;
+        color: #37522f;
+}
+
+/* Button Styles */
+.btn-outline-secondary {
+    color: #6e707e;
+        border-color: #c6a7db;
+}
+
+.btn-outline-secondary:hover {
+            background-color: #e8acdc;
+    color: #fff;
+}
+
+/* Summary and Payment Details */
+.row {
+    align-items: center;
+}
+
+.row label {
+    font-weight: 600;
+}
+
+.text-end {
+    font-weight: 600;
+    color: #4e73df;
+}
+
+/* Footer */
+footer {
+    font-size: 0.875rem;
+    color: #858796;
+}
+
+footer p {
+    margin-bottom: 0;
+}
+</style> *@
+
+@* <div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <!-- 1st container fluid start-->
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    @* <h6>Invoice Page</h6> *@
+                   @*  <input id="profile-img-file-input" type="file" class="profile-img-file-input" style="display: none;" accept="image/*" />
+                    <label for="profile-img-file-input" class="d-block" tabindex="0">
+                        <span class="overflow-hidden border border-dashed d-flex align-center justify-content-center rounded" style="height: 60px; width: 100px;">
+                            <div class="product-main-image">
+                                <img id="profile-img-preview" src="@Model.product.ProductDisplayImage" alt="Product Image" style="max-height: 100%; max-width: 200%; display: none;" />
+                            </div>
+                            <div class="product-other-images d-flex flex-wrap">
+                                @foreach (var item in Model.product.ProductDisplayImage)
+                                {
+                                    <a href="~/images/739421e1-cf09-4882-869e-b04262e643c4_H&M_Logo.jpg"><img alt="Additional Product Image" src="" style="max-height:100%; max-width1:00%"></a>
+                                }
+                            </div> </div>
+                        </span>
+                    </label> *@
+
+                   @*  <script>
+                        document.getElementById('profile-img-file-input').addEventListener('change', function (event) {
+                            const input = event.target;
+                            const file = input.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = function (e) {
+                                    const imgPreview = document.getElementById('profile-img-preview');
+                                    imgPreview.src = e.target.result;
+                                    imgPreview.style.display = 'block';
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        });
+                    </script> *@
+
+
+               @*  </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-page="index">Home</a></li>
+                        <li class="breadcrumb-item active">DataTables</li>
+                    </ol>
+                </div>
+            </div> *@
+        <!-- / 1st container-fluid ends-->
+    
+
+@* <div class="container mt-5">
+    <h2 class="text-center mb-4">Create Invoice</h2>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <h5>Address</h5>
+            <div class="mb-3">
+                <label for="companyAddress" class="form-label">Company Address</label>
+                <input type="text" class="form-control" id="companyAddress" placeholder="Enter Postal Code">
+            </div>
+            <div class="mb-3">
+                <label for="registrationNo" class="form-label">Legal Registration No</label>
+                <input type="text" class="form-control" id="registrationNo">
+            </div>
+            <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email">
+            </div>
+            <div class="mb-3">
+                <label for="website" class="form-label">Website</label>
+                <input type="text" class="form-control" id="website">
+            </div>
+            <div class="mb-3">
+                <label for="contactNo" class="form-label">Contact No</label>
+                <input type="text" class="form-control" id="contactNo">
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <h5>Invoice Details</h5>
+            <div class="mb-3">
+                <label for="invoiceNo" class="form-label">Invoice No</label>
+                <input type="text" class="form-control" id="invoiceNo" value="#LD56804404" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="datetime-local" class="form-control" id="date">
+            </div>
+            <div class="mb-3">
+                <label for="paymentStatus" class="form-label">Payment Status</label>
+                <select class="form-select" id="paymentStatus">
+                    <option selected>Select Payment Status</option>
+                    <option value="1">Paid</option>
+                    <option value="2">Pending</option>
+                    <option value="3">Overdue</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="totalAmount" class="form-label">Total Amount</label>
+                <input type="text" class="form-control" id="totalAmount" value="$0.00" readonly>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-lg-6">
+            <h5>Billing Address</h5>
+            <div class="mb-3">
+                <label for="billingFullName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="billingFullName">
+            </div>
+            <div class="mb-3">
+                <label for="billingAddress" class="form-label">Address</label>
+                <input type="text" class="form-control" id="billingAddress">
+            </div>
+            <div class="mb-3">
+                <label for="billingPhone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="billingPhone">
+            </div>
+            <div class="mb-3">
+                <label for="billingTaxNumber" class="form-label">Tax Number</label>
+                <input type="text" class="form-control" id="billingTaxNumber">
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="sameAsShipping">
+                <label class="form-check-label" for="sameAsShipping">
+                    Billing and Shipping address are the same
+                </label>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <h5>Shipping Address</h5>
+            <div class="mb-3">
+                <label for="shippingFullName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="shippingFullName">
+            </div>
+            <div class="mb-3">
+                <label for="shippingAddress" class="form-label">Address</label>
+                <input type="text" class="form-control" id="shippingAddress">
+            </div>
+            <div class="mb-3">
+                <label for="shippingPhone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="shippingPhone">
+            </div>
+            <div class="mb-3">
+                <label for="shippingTaxNumber" class="form-label">Tax Number</label>
+                <input type="text" class="form-control" id="shippingTaxNumber">
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <h5>Product Details</h5>
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>#</th>
+                <th>Product Name</th>
+                <th>Details</th>
+                <th>Rate ($)</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Product Name</td>
+                <td>Product Details</td>
+                <td>0.00</td>
+                <td>
+                    <button class="btn btn-sm btn-outline-secondary">–</button>
+                    <input type="number" class="form-control d-inline-block" style="width: 60px;" value="0">
+                    <button class="btn btn-sm btn-outline-secondary">+</button>
+                </td>
+                <td>$0.00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <h5>Payment Details</h5>
+            <div class="mb-3">
+                <label for="paymentMethod" class="form-label">Payment Method</label>
+                <select class="form-select" id="paymentMethod">
+                    <option selected>Card</option>
+                    <option value="1">Cheque</option>
+                    <option value="2">Direct Payment</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="cardHolderName" class="form-label">Card Holder Name</label>
+                <input type="text" class="form-control" id="cardHolderName" placeholder="xxxx xxxx xxxx xxxx">
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" value="$0.00" readonly>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <h5>Summary</h5>
+            <div class="mb-3">
+                <div class="row">
+                    <label class="col-md-6">Sub Total</label>
+                    <div class="col-md-6 text-end">$0.00</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="row">
+                    <label class="col-md-6">Estimated Tax (12.5%)</label>
+                    <div class="col-md-6 text-end">$0.00</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="row">
+                    <label class="col-md-6">Discount</label>
+                    <div class="col-md-6 text-end">$0.00</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="row">
+                    <label class="col-md-6">Shipping Charge</label>
+                    <div class="col-md-6 text-end">$0.00</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="row">
+                    <label class="col-md-6"><strong>Total Amount</strong></label>
+                    <div class="col-md-6 text-end"><strong>$0.00</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <h5>Notes</h5>
+    <p>
+        All accounts are to be paid within 7 days from receipt of invoice. Payment should be made by cheque, credit card, or direct payment online.
+        If payment is not received within 7 days, the credit details provided will be charged for the agreed quoted fee noted above.
+    </p>
+
+        <div class="hstack gap-2 justify-content-end d-print-none mb-4">
+            <!-- Save Button -->
+            <button type="submit" class="btn btn-success">
+                <i class="ri-save-3-line align-bottom me-1"></i> Save
+            </button>
+            <!-- Download Button -->
+            <a href="javascript:void(0);" class="btn btn-primary" onclick="downloadInvoice()">
+                <i class="ri-download-2-line align-bottom me-1"></i> Download Invoice
+            </a>
+            <!-- Send Button -->
+            <a href="javascript:void(0);" class="btn btn-danger" onclick="sendInvoice()">
+                <i class="ri-send-plane-fill align-bottom me-1"></i> Send Invoice
+            </a>
+        </div>
+
+        <script>
+            function downloadInvoice() {
+                // Implement the logic to download the invoice
+                alert("Download Invoice button clicked.");
+            }
+
+            function sendInvoice() {
+                // Implement the logic to send the invoice
+                alert("Send Invoice button clicked.");
+            }
+        </script>
+
+
+    <footer class="text-center mt-4">
+         
+        <p>2024 © Lily. Designed & Developed by Themesbrand</p>
+    </footer>
+</div>
+</div> *@
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* 
+<div class="content-wrapper bg-light">
+    <section class="content-header py-3">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="display-4">Invoice Page</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-page="index">Home</a></li>
+                        <li class="breadcrumb-item active">Create Invoice</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container mt-5 p-4 bg-white shadow rounded">
+        <h2 class="text-center mb-4">Create Invoice</h2>
+
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <h5 class="text-primary">Address</h5>
+                <div class="mb-3">
+                    <label for="companyAddress" class="form-label">Company Address</label>
+                    <input type="text" class="form-control" id="companyAddress" placeholder="Enter Postal Code">
+                </div>
+                <div class="mb-3">
+                    <label for="registrationNo" class="form-label">Legal Registration No</label>
+                    <input type="text" class="form-control" id="registrationNo">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email">
+                </div>
+                <div class="mb-3">
+                    <label for="website" class="form-label">Website</label>
+                    <input type="text" class="form-control" id="website">
+                </div>
+                <div class="mb-3">
+                    <label for="contactNo" class="form-label">Contact No</label>
+                    <input type="text" class="form-control" id="contactNo">
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <h5 class="text-primary">Invoice Details</h5>
+                <div class="mb-3">
+                    <label for="invoiceNo" class="form-label">Invoice No</label>
+                    <input type="text" class="form-control" id="invoiceNo" value="#LD56804404" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="datetime-local" class="form-control" id="date">
+                </div>
+                <div class="mb-3">
+                    <label for="paymentStatus" class="form-label">Payment Status</label>
+                    <select class="form-select" id="paymentStatus">
+                        <option selected>Select Payment Status</option>
+                        <option value="1">Paid</option>
+                        <option value="2">Pending</option>
+                        <option value="3">Overdue</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="totalAmount" class="form-label">Total Amount</label>
+                    <input type="text" class="form-control" id="totalAmount" value="$0.00" readonly>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <h5 class="text-primary">Billing Address</h5>
+                <div class="mb-3">
+                    <label for="billingFullName" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="billingFullName">
+                </div>
+                <div class="mb-3">
+                    <label for="billingAddress" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="billingAddress">
+                </div>
+                <div class="mb-3">
+                    <label for="billingPhone" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="billingPhone">
+                </div>
+                <div class="mb-3">
+                    <label for="billingTaxNumber" class="form-label">Tax Number</label>
+                    <input type="text" class="form-control" id="billingTaxNumber">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="sameAsShipping">
+                    <label class="form-check-label" for="sameAsShipping">
+                        Billing and Shipping address are the same
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <h5 class="text-primary">Shipping Address</h5>
+                <div class="mb-3">
+                    <label for="shippingFullName" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="shippingFullName">
+                </div>
+                <div class="mb-3">
+                    <label for="shippingAddress" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="shippingAddress">
+                </div>
+                <div class="mb-3">
+                    <label for="shippingPhone" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="shippingPhone">
+                </div>
+                <div class="mb-3">
+                    <label for="shippingTaxNumber" class="form-label">Tax Number</label>
+                    <input type="text" class="form-control" id="shippingTaxNumber">
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <h5 class="text-primary">Product Details</h5>
+        <table class="table table-bordered table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Details</th>
+                    <th>Rate ($)</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Product Name</td>
+                    <td>Product Details</td>
+                    <td>0.00</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-secondary">–</button>
+                        <input type="number" class="form-control d-inline-block" style="width: 60px;" value="0">
+                        <button class="btn btn-sm btn-outline-secondary">+</button>
+                    </td>
+                    <td>$0.00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <h5 class="text-primary">Payment Details</h5>
+                <div class="mb-3">
+                    <label for="paymentMethod" class="form-label">Payment Method</label>
+                    <select class="form-select" id="paymentMethod">
+                        <option selected>Card</option>
+                        <option value="1">Cheque</option>
+                        <option value="2">Direct Payment</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="cardHolderName" class="form-label">Card Holder Name</label>
+                    <input type="text" class="form-control" id="cardHolderName" placeholder="xxxx xxxx xxxx xxxx">
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" value="$0.00" readonly>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <h5 class="text-primary">Summary</h5>
+                <div class="mb-3">
+                    <div class="row">
+                        <label class="col-md-6">Sub Total</label>
+                        <div class="col-md-6 text-end">$0.00</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <label class="col-md-6">Estimated Tax (12.5%)</label>
+                        <div class="col-md-6 text-end">$0.00</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <label class="col-md-6">Discount (VELZON15)</label>
+                        <div class="col-md-6 text-end">$0.00</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <label class="col-md-6">Shipping Charge</label>
+                        <div class="col-md-6 text-end">$0.00</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <label class="col-md-6">Total Amount</label>
+                        <div class="col-md-6 text-end">$0.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">Submit Invoice</button>
+        </div>
+    </div>
+</div>
+ *@

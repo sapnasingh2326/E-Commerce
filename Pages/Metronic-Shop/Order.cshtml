@@ -1,0 +1,120 @@
+﻿@page
+@model ECommerceWeb.Pages.Metronic_Shop.OrderModel
+@{
+    ViewBag.Title = "Order";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* CSS styles for the order page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .order-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .order-item:last-child {
+                border-bottom: none;
+            }
+
+            .order-item .remove-btn {
+                color: #f44336;
+                cursor: pointer;
+            }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .btn-default {
+            background-color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="order-container">
+        <h1>My Orders</h1>
+        <ul id="order-items">
+            <!-- JavaScript will populate this list -->
+        </ul>
+        <a href="JavaScript:;" class="btn btn-default add2order">Add New Order</a>
+    </div>
+
+    <script>
+        // JavaScript for order functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const orderItems = []; // Array to store order items
+
+            const addButton = document.querySelector('.add2order');
+            addButton.addEventListener('click', function () {
+                const orderName = prompt('Enter order name:');
+                if (orderName) {
+                    const orderId = orderItems.length + 1;
+                    orderItems.push({ id: orderId, name: orderName });
+                    updateOrder();
+                }
+            });
+
+            function updateOrder() {
+                const order = document.getElementById('order-items');
+                order.innerHTML = ''; // Clear existing list
+
+                orderItems.forEach(function (item) {
+                    const li = document.createElement('li');
+                    li.className = 'order-item';
+
+                    const itemName = document.createElement('span');
+                    itemName.textContent = item.name;
+                    li.appendChild(itemName);
+
+                    const removeBtn = document.createElement('span');
+                    removeBtn.innerHTML = '❌';
+                    removeBtn.className = 'remove-btn';
+                    removeBtn.addEventListener('click', function () {
+                        const index = orderItems.indexOf(item);
+                        if (index !== -1) {
+                            orderItems.splice(index, 1);
+                            updateOrder();
+                        }
+                    });
+                    li.appendChild(removeBtn);
+
+                    order.appendChild(li);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

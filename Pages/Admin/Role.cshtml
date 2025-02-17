@@ -1,0 +1,141 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.RoleModel
+@{
+    ViewBag.Title = "Role";
+}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <!-- 1st container fluid start-->
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Roles</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-page="index">Home</a></li>
+                        <li class="breadcrumb-item active">DataTables</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- / 1st container-fluid ends-->
+    </section>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- Countries validation -->
+                <div class="card card-primary card-outline card-info">
+                    <h5 class="ml-3">Role</h5>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form method="post">
+                        <input type="hidden" asp-for="role.Id" />
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label class="ml-2">RoleName</label>
+                                    <input type="text" asp-for="role.RoleName" class="form-control" placeholder="Short Name" required>
+                                </div>
+                            </div>
+
+
+                            <!-- /.card-body -->
+                            <div class="text-center mt-3">
+
+                                @if (Model.role.Id != 0)
+                                {
+                                    <button type="submit" class="btn btn-info">UPDATE</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-info">SUBMIT</button>
+
+                                }
+                            </div>
+
+                        </div>
+
+                    </form>
+
+
+                </div>
+
+
+
+
+                <form method="post">
+
+                    <div class="card-body card card-outline card-success pl-1">
+                        <div class="card-header">
+
+                            <h3 class="mr-2">Role DataList</h3>
+                        </div>
+
+                        <table id="example1" class="table table-bordered table-striped">
+                            <!--For drop menu-->
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">RoleName</th>
+                                    <th scope="col">Action</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @if (Model.datalist.Count() > 0)
+                                {
+                                    foreach (var item in Model.datalist)
+                                    {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td>@item.RoleName</td>
+
+
+                                            <td class="mr-5">
+                                                <a asp-page="Role" asp-route-id="@item.Id" class="btn btn-success">EDIT</a>
+
+
+                                                <button asp-page-handler="Delete" asp-route-id="@item.Id"
+                                                        onclick="return confirm('Are you sure you want to DELETE?')" class="btn btn-danger">
+                                                    DELETE
+                                                </button>
+
+                                            </td>
+
+
+                                        </tr>
+                                    }
+                                }
+
+
+
+                                else
+                                {
+
+                                    <tr>No data found</tr>
+
+                                }
+
+
+                            </tbody>
+
+
+                        </table>
+
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

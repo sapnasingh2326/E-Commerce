@@ -1,0 +1,13 @@
+﻿@page
+@model ECommerceWeb.Pages.Shared.Shipping_ReturnsModel
+@{
+}
+<!-- Carousel Wrapper -->
+<div class="container">
+    <!-- Carousel Inner -->
+    <h1>@Model.ShippingReturnPage.PageName</h1>
+
+    @Html.Raw(Model.ShippingReturnPage.PageUrl)
+
+    @Html.Raw(Model.ShippingReturnPage.PageContent)
+</div>

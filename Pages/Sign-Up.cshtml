@@ -1,0 +1,144 @@
+﻿@page
+@model ECommerceWeb.Pages.Sign_UpModel
+@{
+    ViewBag.Title = "Sign_Up";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="path/to/bootstrap.css">
+    <style>
+        #error-message {
+            display: none;
+            color: green;
+            margin-top: 10px;
+        }
+        
+       .btn-primary:hover{
+            background-color:yellow;
+        }
+        a.btn.btn-secondary {
+            background-color: darkred;
+            color: white;
+        }
+        a.btn.btn-secondary:hover{
+            background-color:darkorchid;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="Dashboard">Customers</a></li>
+                            <li class="breadcrumb-item active">Sign Up</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="container">
+                <div class="row margin-bottom-40">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="panel-group checkout-page accordion scrollable" id="checkout-page">
+                            <div class="col-md-6 col-sm-6">
+                                <h3>Sign Up</h3>
+                                <p>Create a new account.</p>
+                                <form id="signup-form" role="form" method="post">
+                                    <div id="error-message"></div>
+                                    <div class="form-group">
+                                        <label for="name-signup">Name</label>
+                                        <input type="text" id="name-signup" asp-for="Name" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email-signup">E-Mail</label>
+                                        <input type="email" id="email-signup" asp-for="Email" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password-signup">Create Password</label>
+                                        <input type="password" id="password-signup" asp-for="Password" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirm-password-signup">Confirm Password</label>
+                                        <input type="password" id="confirm-password-signup" asp-for="ConfirmPassword" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mobile-signup">Mobile</label>
+                                        <input type="tel" id="mobile-signup" asp-for="Mobile" pattern="[0-9]{10}" maxlength="10" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address-signup">Address</label>
+                                        <textarea id="address-signup" asp-for="Address" class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="postCode-signup">PostCode</label>
+                                        <input type="text" id="postCode-signup" asp-for="PostCode" pattern="[0-9]{6}" maxlength="6" class="form-control">
+                                    </div>
+                                    <div class="padding-top-20">
+                                        <button class="btn btn-primary" type="submit">Sign Up</button>
+                                        <a class="btn btn-secondary" href="Login">Login</a>
+                                    </div>
+                                   
+                                </form>
+
+                                <hr>
+                                <div class="login-socio">
+                                    <p class="text-muted">or sign up using:</p>
+                                    <ul class="social-icons">
+                                        <li><a href="javascript:;" data-original-title="facebook" class="facebook" title="facebook"></a></li>
+                                        <li><a href="javascript:;" data-original-title="Twitter" class="twitter" title="Twitter"></a></li>
+                                        <li><a href="javascript:;" data-original-title="Google Plus" class="googleplus" title="Google Plus"></a></li>
+                                        <li><a href="javascript:;" data-original-title="Linkedin" class="linkedin" title="LinkedIn"></a></li>
+                                        <li><a href="javascript:;" data-original-title="Instagram" class="instagram" title="Instagram"></a></li>
+                                        @* <li><a href="javascript:;" data-original-title="Snapchat" class="snapchat" title="Snapchat"></a></li> *@
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#signup-form').on('submit', function (e) {
+                e.preventDefault();
+                var password = $('#password-signup').val();
+                var confirmPassword = $('#confirm-password-signup').val();
+
+                if (password !== confirmPassword) {
+                    $('#error-message').text('Passwords do not match.').show();
+                    return false;
+                }
+
+                this.submit();
+            });
+
+            var   = '@TempData["errorMsg"]';
+            if (errorMsg) {
+                toastr.error(errorMsg);
+            }
+
+            var successMsg = '@TempData["successMsg"]';
+            if (successMsg) {
+                toastr.success(successMsg);
+            }
+
+
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+﻿@page
+@model ECommerceWeb.Pages.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="path/to/bootstrap.css">
+    <style>
+        #error-message {
+            display: none;
+            color: red;
+            margin-top: 10px;
+        }
+       button.btn.btn-secondary{
+            background-color:darkmagenta;
+            color:white;
+        }
+
+        a.btn.btn-secondary {
+            background-color: green;
+            color: white;
+        }
+        /* .login-background{
+            background-image:url('@Model.appInfo.LogoBackGroundImage');
+            background-size:cover;
+            background-position:center;
+            background-repeat:no-repeat;
+            min-height:100vh;
+        } */
+        div.col-md-12.col-sm-12 {
+            background-color:mediumpurple;
+            background-image: url('@Model.appInfo.LogoBackGroundImage');
+           /*  background-image: url('@Model.appInfo.Logo'); */
+        }
+
+        /* div.panel-group.checkout-page.accordion.scrollable {
+            background-image:url('@Model.appInfo.Logo');
+           
+        } */
+        p{
+            color: #f2fff2;
+        }
+        h3{
+            color: #ccffcc;
+        }
+    </style>
+</head>
+<body>
+    <!-- Your existing HTML structure -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="Dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Login</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main content -->
+        <div class="main">
+           
+            <div class="container">
+                <div class="row margin-bottom-40">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="panel-group checkout-page accordion scrollable" id="checkout-page">
+                            <div class="col-md-6 col-sm-6">
+                               @*  <img src="@Model.appInfo.LogoBackGroundImage" style="background-size:cover;" /> *@
+                                <img src="@Model.appInfo.FavIcon" style="height:60px;width:60px"/>
+                                <h3>Login Customer</h3>
+                                <p>I am a returning customer.</p>
+                                <form id="login-form" role="form" method="post">
+                                    <div id="error-message"></div>
+                                    <div class="form-group">
+                                        <label for="email-login">E-Mail</label>
+                                        <input type="text" id="email-login" asp-for="Username" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password-login">Password</label>
+                                        <input type="password" id="password-login" asp-for="Password" class="form-control">
+                                    </div>
+                                    <a href="javascript:;">Forgotten Password?</a>
+                                    <a href="javascript:;">Sign-Up</a>
+                                    <div class="padding-top-20">
+                                        <button class="btn btn-primary" type="submit">Login</button>
+                                        <a class="btn btn-secondary" href="Sign-Up" >SignUp</a>
+                                    </div>
+
+                                    @* <div style="background-image: url('@Model.appInfo.LogoBackGroundImage'); background-size: cover;">
+                                        <img src="@Model.appInfo.Logo" alt="Logo" />
+                                    </div> 
+ *@
+                                    <hr>
+                                    <div class="login-socio">
+                                        <p class="text-muted">or login using:</p>
+                                        <ul class="social-icons">
+                                            <li><a href="javascript:;" data-original-title="facebook" class="facebook" title="facebook"></a></li>
+                                            <li><a href="javascript:;" data-original-title="Twitter" class="twitter" title="Twitter"></a></li>
+                                            <li><a href="javascript:;" data-original-title="Google Plus" class="googleplus" title="Google Plus"></a></li>
+                                            <li><a href="javascript:;" data-original-title="Linkedin" class="linkedin" title="LinkedIn"></a></li>
+                                        </ul>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!------------Error Function for loging form-------------------->
+    <script>
+        $(document).ready(function () {
+            var errorMsg = '@TempData["errorMsg"]';
+            if (errorMsg) {
+                toastr.error(errorMsg);
+            }
+        });
+    </script>
+    <script>
+        function showOrderItems(orderId) {
+            // Show the modal
+            $('#orderItemsModal').modal('show');
+            // Clear previous content
+            $('#orderItemsContent').html('Loading...');
+
+            // Fetch order items from the API
+            $.ajax({
+                url: '/Api/GetOrderItemsListForPopup?OrderId=' + orderId,
+                type: 'GET',
+                success: function (data) {
+                    // Format and display the order items
+                    let items = '<div class="container">';
+                    // Customer and Order Information
+                    items += '<div class="row">';
+                    items += '<div class="col-md-6">';
+                    items += '<h5>Customer Items</h5>';
+                    items += '<p>Customer ID: ' + data.customerId + '</p>';
+                    items += '<p>Order ID: ' + data.id + '</p>';
+                    items += '</div>';
+                    items += '<div class="col-md-6">';
+                    items += '<h5>Order items</h5>';
+                    items += '<p>Order Date: ' + data.orderDate + '</p>';
+                    items += '<p>Order Number: ' + data.orderNumber + '</p>';
+                    items += '<p>Order Status: ' + data.orderStatus + '</p>';
+                    items += '</div>';
+                    items += '</div>';
+                    // Order items
+                    items += '<h5>Order Items</h5>';
+                    items += '<table class="table table-striped">';
+                    items += '<thead>';
+                    items += '<tr>';
+                    items += '<th>Product</th>';
+                    items += '<th>Product ID</th>';
+                    items += '<th>Quantity</th>';
+                    items += '<th>Price</th>';
+                    items += '</tr>';
+                    items += '</thead>';
+                    items += '<tbody>';
+                    data.orderItems.forEach(item => {
+                        items += '<tr>';
+                        items += '<td>' + item.productName + '</td>';
+                        items += '<td>' + item.productId + '</td>';
+                        items += '<td>' + item.quantity + '</td>';
+                        items += '<td>' + item.price + '</td>';
+                        items += '</tr>';
+                    });
+                    items += '</tbody>';
+                    items += '</table>';
+                    items += '</div>';
+                    $('#orderItemsContent').html(items);
+                },
+                error: function (error) {
+                    $('#orderItemsContent').html('Error loading items');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

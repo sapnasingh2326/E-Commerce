@@ -1,0 +1,205 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.SmtpconfigModel
+@{
+
+}
+
+<style>
+    .content-wrapper {
+        background-color: #f9f9f9;
+        padding: 20px;
+    }
+
+    .page-title {
+        color: #8A2BE2;
+        font-weight: bold;
+    }
+
+    .page-subtitle {
+        color: #2575fc;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .breadcrumb-link {
+        color: #2575fc;
+        font-weight: bold;
+    }
+
+    .breadcrumb-current {
+        color: #6a11cb;
+        font-style: italic;
+    }
+
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .card-title {
+        color: #6a11cb;
+        font-size: 1.5rem;
+    }
+
+    /* Table Row Styling */
+    tbody tr:nth-child(even) {
+        background-color: #d0bdf4;
+    }
+
+    tbody tr:nth-child(odd) {
+        background-color: #8458B3;
+    }
+
+    tbody tr:hover {
+        background-color: #bbaadb;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Table Header */
+    thead {
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        color: white;
+    }
+
+    /* Buttons */
+    .btn {
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .btn:hover {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+        transition: all 0.2s ease-in-out;
+    }
+</style>
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="page-title">SMTP Configurations</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-page="index" class="breadcrumb-link">Home</a></li>
+                        <li class="breadcrumb-item active breadcrumb-current">SMTP Config</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form -->
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                <input type="hidden" asp-for="smtpConfig.SmtpId" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="smtpConfig.SmtpUser" class="form-label">Email*</label>
+                            <input asp-for="smtpConfig.SmtpUser" class="form-control" required />
+                            <span asp-validation-for="smtpConfig.SmtpUser" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="smtpConfig.SmtpPassword" class="form-label">Password*</label>
+                            <input asp-for="smtpConfig.SmtpPassword" type="password" class="form-control" required />
+                            <span asp-validation-for="smtpConfig.SmtpPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="smtpConfig.Host" class="form-label">Host*</label>
+                            <input asp-for="smtpConfig.Host" class="form-control" placeholder="Enter Your Host" required />
+                            <span asp-validation-for="smtpConfig.Host" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="smtpConfig.Port" class="form-label">Port Number*</label>
+                            <input asp-for="smtpConfig.Port" class="form-control" placeholder="Enter Port Number" required />
+                            <span asp-validation-for="smtpConfig.Port" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="smtpConfig.IsEnableSsl" class="form-label">SSL*</label>
+                            <div class="d-flex">
+                                <div class="form-check me-3">
+                                    <input asp-for="smtpConfig.IsEnableSsl" class="form-check-input" type="radio" value="true" required>
+                                    <label class="form-check-label">Enable</label>
+                                </div>
+                                <div class="form-check">
+                                    <input asp-for="smtpConfig.IsEnableSsl" class="form-check-input" type="radio" value="false">
+                                    <label class="form-check-label">Disable</label>
+                                </div>
+                            </div>
+                            <span asp-validation-for="smtpConfig.IsEnableSsl" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-md">Save</button>
+                <a asp-page="./smtpconfig" class="btn btn-secondary w-md ms-2" style="background-color: palevioletred;">Reset</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">SMTP Configurations</h2>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>SmtpId</th>
+                        <th>Email</th>
+                        <th>Host</th>
+                        <th>Port</th>
+                        <th>SSL</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.datalist.Any())
+                    {
+                        @foreach (var item in Model.datalist)
+                        {
+                            <tr>
+                                <td>@item.SmtpId</td>
+                                <td>@item.SmtpUser</td>
+                                <td>@item.Host</td>
+                                <td>@item.Port</td>
+                                @* <td>@(item.IsEnableSsl.HasValue ? (item.IsEnableSsl.Value ? "Enabled" : "Disabled") : "Not Set")</td> *@
+                                <td>@item.IsEnableSsl</td>
+
+                                <td>
+                                    <a asp-page="./smtpconfig" asp-route-id="@item.SmtpId " class="btn btn-info btn-sm">Edit</a>
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.SmtpId " class="d-inline">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center">No data found</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

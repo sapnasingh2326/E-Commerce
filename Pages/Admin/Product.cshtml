@@ -1,0 +1,464 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.ProductModel
+@{
+    
+}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const productName = document.querySelector('input[asp-for="product.ProductName"]');
+        const shortDescription = document.querySelector('input[asp-for="product.ShortDescription"]');
+        const longDescription = document.querySelector('textarea[asp-for="product.LongDescription"]');
+        const price = document.querySelector('input[asp-for="product.Price"]');
+        const categoryId = document.getElementById('CategoryId');
+        const subCategoryId = document.getElementById('SubCategoryId');
+
+        form.addEventListener('submit', function (event) {
+            let valid = true;
+
+            if (productName.value.length > 20) {
+                valid = false;
+                showError(productName, 'Product Name cannot be longer than 20 characters');
+            } else {
+                clearError(productName);
+            }
+
+            if (shortDescription.value.length > 200) {
+                valid = false;
+                showError(shortDescription, 'Product Short Description cannot be longer than 200 characters');
+            } else {
+                clearError(shortDescription);
+            }
+
+            if (longDescription.value.length > 400) {
+                valid = false;
+                showError(longDescription, 'Product Long Description cannot be longer than 400 characters');
+            } else {
+                clearError(longDescription);
+            }
+
+            const priceValue = parseFloat(price.value);
+            if (isNaN(priceValue) || priceValue < 100 || priceValue > 10000) {
+                valid = false;
+                showError(price, 'The field Price must be between 100 and 10000');
+            } else {
+                clearError(price);
+            }
+
+            if (categoryId.value === '') {
+                valid = false;
+                showError(categoryId, 'Please select a category');
+            } else {
+                clearError(categoryId);
+            }
+
+            if (subCategoryId.value === '') {
+                valid = false;
+                showError(subCategoryId, 'Please select a sub-category');
+            } else {
+                clearError(subCategoryId);
+            }
+
+            if (!valid) {
+                event.preventDefault();
+            }
+        });
+
+        function showError(input, message) {
+            const span = input.nextElementSibling;
+            span.textContent = message;
+            span.classList.add('text-danger');
+        }
+
+        function clearError(input) {
+            const span = input.nextElementSibling;
+            span.textContent = '';
+            span.classList.remove('text-danger');
+        }
+    });
+</script>
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Products</h1>
+                </div>
+                <div class="col-sm-6"> 
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-page="index">Home</a></li>
+                        <li class="breadcrumb-item active">DataTables</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline card-info">
+                    <h5 class="ml-3">Product</h5>
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="product.Id" />
+                        <div class="card-body">
+
+                            <!--------DROPDOWN FOR CATEGORY-------->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Category:</label>
+                                        <select id="CategoryId" asp-for="product.SubCategory" class="form-control">
+                                            <option value="">Select Category</option>
+                                            @if (Model.category != null)
+                                            {
+                                                @foreach (var item in Model.category)
+                                                {
+                                                    <option value="@item.Id">@item.CategoryName</option>
+                                                }
+                                            }
+                                        </select>
+                                        <span asp-validation-for="product.SubCategory" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <!--------DROPDOWN FOR SUBCATEGORY------->
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+
+                                        <label>Sub-Category:</label>
+                                        <select id="SubCategoryId" asp-for="product.SubCategory" class="form-control">
+                                            <option value="">Select Sub-Category</option>
+                                            <!-- Sub-categories will be loaded here via JavaScript -->
+                                          </select>
+                                        <span asp-validation-for="product.SubCategory" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+
+
+                               @*  <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Sub-Category:</label>
+                                        <select id="SubCategoryId" asp-for="product.SubCategoryId" class="form-control">
+                                            <option value="">Select Sub-Category</option>
+                                            @if (Model.subcategory != null)
+                                            {
+                                                @foreach (var item in Model.subcategory)
+                                                {
+                                                    <option value="@item.Id">@item.SubCategoryName</option>
+                                                }
+                                            }
+                                        </select>
+                                        <span asp-validation-for="product.SubCategory" class="text-danger"></span>
+                                    </div>
+                                </div> *@
+                                <!--------------PRODUCT CODE------------->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Product Code:</label>
+                                        <input type="text" asp-for="product.ProductCode" class="form-control" placeholder="ProductCode" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <!----------------PRODUCT NAME--------------->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Product Name:</label>
+                                        <input type="text" asp-for="product.ProductName" class="form-control" placeholder="ProductName" required maxlength="20">
+                                        
+                                    </div>
+                                </div>
+                                <!-----------SHORT DESCRIPTIONS------------>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Short Description:</label>
+                                        <input type="text" asp-for="product.ShortDescription" class="form-control" placeholder="ShortDescription" maxlength="200" required>
+                                       
+                                    </div>
+                                </div>
+                                <!------------LONG DESCRIPTIONS------------->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Long Description:</label>
+                                        <textarea asp-for="product.LongDescription" class="form-control" placeholder="Long Description" maxlength="400" required></textarea>
+                                        
+                                     </div>
+                                </div>
+                            </div>
+                            <!--------------PRICE-------------->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Price:</label>
+                                        <input type="number" asp-for="product.Price" class="form-control" placeholder="Price" required>
+                                        <span asp-validation-for="product.Price" class="text-danger">The field Price must be between 100 and 10000</span>
+                                    </div>
+                                </div>
+                               <!----------QUALITY---------------->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Quality:</label>
+                                        <input type="text" asp-for="product.Quality" class="form-control" placeholder="Quality" required>
+                                    </div>
+                                </div>
+                                <!-----------DROPDOWN FOR PRODUCT SIZE------------>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Product Size:</label>
+                                        <select id="ProductSizeId" asp-for="product.ProductSizeId" class="form-control">
+                                            <option value="">Select Product Size</option>
+                                            @if (Model.productSize != null)
+                                            {
+                                                @foreach (var item in Model.productSize)
+                                                {
+                                                    <option value="@item.Id">@item.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                        <span asp-validation-for="product.ProductSizeId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-----------DROPDOWN FOR PRODUCT COLOR----------->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Product Color:</label>
+                                        <select id="ProductColorId" asp-for="product.ProductColorId" class="form-control">
+                                            <option value="">Select Product Color</option>
+                                            @if (Model.productColor != null)
+                                            {
+                                                @foreach (var item in Model.productColor)
+                                                {
+                                                    <option value="@item.Id">@item.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                        <span asp-validation-for="product.ProductColorId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                               <!-----------BRAND NAME--------->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Brand Name:</label>
+                                        <input type="text" asp-for="product.BrandName" class="form-control" placeholder="BrandName" maxlength="20" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Available Quantity:</label>
+                                        <input type="text" asp-for="product.AvailableQty" class="form-control" placeholder="AvailableQty">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>New Arrivals:</label>
+                                        <div class="form-check">
+                                            <input type="checkbox" asp-for="product.IsNewarrivals" class="form-check-input" id="isNewArrivalsCheckbox">
+                                            <label class="form-check-label" for="isNewArrivalsCheckbox">IsNewarrivals</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Three Items:</label>
+                                        <div class="form-check">
+                                            <input type="checkbox" asp-for="product.IsThreeitems" class="form-check-input" id="IsThreeitemsCheckbox">
+                                            <label class="form-check-label" for="IsThreeitemsCheckbox">IsThreeitems</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Two Items:</label>
+                                        <div class="form-check">
+                                            <input type="checkbox" asp-for="product.IsTwoitems" class="form-check-input" id="IsTwoitemsCheckbox">
+                                            <label class="form-check-label" for="IsTwoitemsCheckbox">IsTwoitems</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Available:</label>
+                                        <div class="form-check">
+                                            <input type="checkbox" asp-for="product.IsAvailable" class="form-check-input" id="IsAvailableCheckbox">
+                                            <label class="form-check-label" for="IsAvailableCheckbox">IsAvailable</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Stock:</label>
+                                        <div class="form-check">
+                                            <input type="checkbox" asp-for="product.IsStock" class="form-check-input" id="IsStockCheckbox">
+                                            <label class="form-check-label" for="IsStockCheckbox">IsStock</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Product Display Image:</label>
+                                    <input asp-for="product.ProductDisplayImage" multiple class="form-control" type="file" placeholder="ImageUrl">
+                                </div>
+                            </div>
+
+                            <!-- Created Date (commented out) -->
+                            <!-- <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Created Date</label>
+                                    <input type="date" asp-for="product.CreatedDate" class="form-control" placeholder="CreatedDate" required>
+                                </div>
+                            </div> -->
+
+                            <div class="row">
+                                <div class="col-12 text-center mt-3">
+                                    @if (Model.product.Id != 0)
+                                    {
+                                        <button type="submit" name="action" value="update" class="btn btn-info">UPDATE</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" name="action" value="save" class="btn btn-info">SUBMIT</button>
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+             </div>
+
+
+                <form method="post">
+
+                    <div class="card-body card card-outline card-success pl-1">
+                        <div class="card-header">
+
+                            <h3 class="mr-2">Product Datalist</h3>
+                        </div>
+
+                        <table id="example1" class="table table-bordered table-striped">
+                            <!--For drop menu-->
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">SubCategory</th>
+                                    @* <th scope="col">ProductCode</th> *@
+                                    <th scope="col">ProductName</th>
+@*                                  <th scope="col">ShortDescription</th>
+                                    <th scope="col">LongDescription</th> *@
+                                    <th scope="col">Price</th>
+                                 @*    <th scope="col">Quality</th> *@
+                                    @* <th scope="col">ProductSizeId</th>
+                                    <th scope="col">ProductColorId</th> *@
+                                    @* <th scope="col">BrandName</th>
+                                    <th scope="col">AvailableQty</th>
+                                    <th scope="col">IsNewarrivals</th>
+                                    <th scope="col">IsThreeitems</th>
+                                    <th scope="col">IsTwoitems</th>
+                                    <th scope="col">IsAvailable</th>
+                                    <th scope="col">IsStock</th>
+                                    <th scope="col">CreatedDate</th>  *@
+                                    <th scope="col">productDisplayImage</th>
+                                    <th scope="col">Action</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @if (Model.datalist.Count() > 0)
+                                {
+                                    foreach (var item in Model.datalist)
+                                    {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                           @*  <td>@item.Category </td> *@
+                                            <td>@item.SubCategoryId</td>
+                                            <td>@item.ProductCode</td>
+                                            <td>@item.ProductName</td>
+                                            <td>@item.Price</td>
+                                            @* <td>@item.ProductSizeId</td>
+                                            <td>@item.ProductColorId</td> *@@*                                           
+                                            <td>@item.Quality</td>
+                                            <td>@item.BrandName</td>
+                                            <td>@item.AvailableQty</td>
+                                            <td>@item.IsNewarrivals</td>
+                                            <td>@item.IsThreeitems</td>
+                                            <td>@item.IsTwoitems</td>
+                                            <td>@item.IsAvailable</td>
+                                            <td>@item.IsStock</td>
+                                            <td>@item.ShortDescription</td>
+                                            <td>@item.LongDescription</td>
+                                            <td>@item.CreatedDate</td> *@
+                                            @*   for image *@
+                                            <td><img src="@item.ProductDisplayImage" width="50" height="50" alt="Product Image"></td>
+                                            
+
+                                            <td class="mr-5">
+                                                <a asp-page="Product" asp-route-id="@item.Id" class="btn btn-success">EDIT</a>
+                                            <a asp-page="invoicePrint" asp-route-id="@item.Id" class="btn btn-dark">Invoice</a>
+
+                                                <button asp-page-handler="Delete" asp-route-id="@item.Id"
+                                                        onclick="return confirm('Are you sure you want to DELETE?')" class="btn btn-danger">
+                                                    DELETE
+                                                </button>
+
+                                            </td>
+
+
+                                        </tr>
+                                    }
+                                }
+
+
+
+                                else
+                                {
+
+                                    <tr>No Product data found</tr>
+
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </form>
+
+        </div>
+    </div>
+</div>
+
+
+    
+@section Scripts {
+    <script src="~/js/admin/product.js"></script>
+}
+
+
+
+
+
+
+
+
+

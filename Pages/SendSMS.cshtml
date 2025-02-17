@@ -1,0 +1,192 @@
+﻿ @page
+@model ECommerceWeb.Pages.SendSMSModel
+@{
+    ViewData["Title"] = "Send SMS";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send SMS</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS to make the page look even more beautiful */
+        body {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+
+        .sms-container {
+            margin: 50px auto;
+            max-width: 1000px;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        } 
+
+        .sms-header {
+            text-align: center;
+            color: #6a11cb;
+            margin-bottom: 20px;
+        }
+
+        .form-control:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 10px rgba(106, 17, 203, 0.5);
+        }
+
+        .btn-send {
+            background-color: #6a11cb;
+            color: #fff;
+            border: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+            .btn-send:hover {
+                background-color: orangered;
+                transform: translateY(-3px);
+            }
+
+            .btn-send:focus {
+                outline: none;
+                box-shadow: 0 0 10px rgba(37, 117, 252, 0.6);
+            }
+
+        .form-group i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6a11cb;
+        }
+
+        .alert {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container sms-container">
+        <h2 class="sms-header"><i class="fas fa-sms"></i> Send SMS</h2>
+
+        <!-- Success or Error Messages -->
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success text-center" role="alert">
+                @TempData["Success"]
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                @TempData["Error"]
+            </div>
+        }
+
+        <form method="post" onsubmit="return validateForm()">
+            <!-- Phone Number Field for SMS -->
+            <div class="form-group position-relative">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="text" class="form-control" id="phoneNumber" name="PhoneNumber" placeholder="+91" maxlength="10" required>
+                <i class="fas fa-phone-alt"></i>
+                <small id="phoneError" class="text-danger"></small>
+            </div>
+
+            <!-- Email Address Field for Email -->
+            <div class="form-group position-relative">
+                <label for="emailAddress">Email Address</label>
+                <input type="email" class="form-control" id="emailAddress" name="EmailAddress" placeholder="Enter email address" required>
+                <i class="fas fa-envelope"></i>
+                <small id="emailError" class="text-danger"></small>
+            </div>
+
+            <!-- Message Field for SMS -->
+            <div class="form-group position-relative">
+                <label for="message">Message</label>
+                <textarea class="form-control" id="message" name="Message" rows="4" placeholder="Type your message here..." required></textarea>
+                <i class="fas fa-comment"></i>
+                <small id="messageError" class="text-danger"></small>
+            </div>
+
+            
+
+            <!-- Subject Field for Email -->
+            @* <div class="form-group position-relative">
+                <label for="emailSubject">Email Subject</label>
+                <input type="text" class="form-control" id="emailSubject" name="EmailSubject" placeholder="Enter subject" required>
+            </div> *@
+
+            @* <!-- Email Message Field -->
+            <div class="form-group position-relative">
+                <label for="emailMessage">Email Message</label>
+                <textarea class="form-control" id="emailMessage" name="EmailMessage" rows="4" placeholder="Type your email message here..." required></textarea>
+                <i class="fas fa-comment-dots"></i>
+                <small id="emailMessageError" class="text-danger"></small>
+            </div> *@
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-send btn-block mt-4"><i class="fas fa-paper-plane"></i> Send SMS & Email</button>
+        </form>
+
+    </div>
+
+    <!-- Bootstrap and JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // JavaScript for real-time validation
+        document.getElementById('phoneNumber').addEventListener('input', function () {
+            const phoneError = document.getElementById('phoneError');
+            const phoneRegex = /^\+?[1-9]\d{1,14}$/; // E.164 format check
+
+            if (!phoneRegex.test(this.value)) {
+                phoneError.innerText = "Invalid phone number format. Use +91 9676474353.";
+            } else {
+                phoneError.innerText = "";
+            }
+        });
+
+        document.getElementById('message').addEventListener('input', function () {
+            const messageError = document.getElementById('messageError');
+
+            if (this.value.trim() === "") {
+                messageError.innerText = "Message cannot be empty.";
+            } else {
+                messageError.innerText = "";
+            }
+        });
+
+        // Final validation before form submission
+        function validateForm() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const message = document.getElementById('message').value;
+            const phoneError = document.getElementById('phoneError');
+            const messageError = document.getElementById('messageError');
+            const phoneRegex = /^\+?[1-9]\d{1,14}$/; // Basic E.164 format
+
+            let isValid = true;
+
+            if (!phoneRegex.test(phoneNumber)) {
+                phoneError.innerText = "Please enter a valid phone number.";
+                isValid = false;
+            }
+
+            if (message.trim() === "") {
+                messageError.innerText = "Message cannot be empty.";
+                isValid = false;
+            }
+
+            return isValid; // Prevent form submission if not valid
+        }
+    </script>
+
+</body>
+</html>

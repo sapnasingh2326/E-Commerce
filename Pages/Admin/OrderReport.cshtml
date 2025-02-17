@@ -1,0 +1,209 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.OrderReportModel
+@{
+}
+<style>
+    .card-header {
+        background-color: #2c3e50; /* Dark blue color */
+        color: white; /* Text color */
+        padding: 15px; /* Add some padding for better spacing */
+        border-bottom: 2px solid #34495e; /* Subtle border at the bottom */
+    }
+    /* Search input styling */
+    .form-control {
+        border-radius: 25px; /* Rounded corners */
+        padding: 10px;
+    }
+
+    /* Card Body Styling */
+    .card-body {
+        background: linear-gradient(135deg, #f0f8ff, #e6e6fa);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Table Styling */
+    table {
+        width: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Table Header Styling */
+    thead {
+        background-color: #9966ff;
+        color: white;
+    }
+
+    /* Table Row Styling */
+    tbody tr:nth-child(odd) {
+        background-color: #99b4ff;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #80a2ff;
+    }
+    /* Table Hover Effect */
+    /* .table td:hover {
+        background-color: #ff5e6c;
+        color: white;
+    } */
+
+    /* Apply hover effect to entire row */
+    .table tbody tr:hover {
+        background-color: #ff99a2; /* Highlight color */
+        color: white; /* Text color on hover */
+    }
+
+    /* Optional: Keep the cell text color change as white on hover */
+    .table td:hover {
+        color: white;
+    }
+   
+</style>
+
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <!-- 1st container fluid start-->
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0"
+                        style="color: darkred; align-items:center; align-content:center;
+           background: linear-gradient(90deg, #f8f9fa, #a8e063);
+           font-weight: bold;
+           border: 1px solid #a8e063;
+           padding: 10px 15px;
+           border-radius: 8px;
+           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+           transition: all 0.3s ease;"
+                        onmouseover="this.style.background='linear-gradient(90deg, #e9ecef, #dee2e6)';"
+                        onmouseout="this.style.background='linear-gradient(90deg, #f8f9fa, #a8e063)';">
+                        Order Data List
+                    </h1>
+                 
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-page="index">Home</a></li>
+                        <li class="breadcrumb-item active">Order Report</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- / 1st container-fluid ends-->
+    </section>
+   
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline card-info">
+                    <div class="card-header d-flex justify-content-between">
+                        
+                        <div>
+                            <form id="searchForm" method="get" class="form-inline">
+                                <input type="text" name="searchQuery" class="form-control mr-2" placeholder="Search by Order Number" value="@Request.Query["searchQuery"]">
+                                <button type="submit" class="btn btn-primary mr-2">Search</button>
+                                <button type="button" id="resetButton" class="btn" style=" background: linear-gradient(90deg, #ff7f50, #ff4500); color: white; font-weight: bold;  border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">
+                                    Reset
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                   
+                    <div class="card-body">
+                        <button type="button" id="downloadExcel" class="btn btn-success mb-3" style=" background: linear-gradient(90deg, #6f42c1, #e83e8c); color: white; font-weight: bold;  border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">
+                          Download Excel
+                        </button>
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead style="background-color: #343a40; color: white;">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>CustomerId</th>
+                                    <th>OrderNumber</th>
+                                    @* <th>OrderItems</th> *@
+                                    <th>OrderDate</th>
+                                    <th>OrderStatus</th>
+                                    <th>Action</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.OrderList.Count > 0)
+                                {
+                                    foreach (var item in Model.OrderList)
+                                    {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td>@item.CustomerId</td>
+                                            <td>@item.OrderNumber</td>
+                                            @* <td>@item.OrderItems</td> *@
+                                            <td>@item.OrderDate</td>
+                                            <td>@item.OrderStatus</td>
+                                           
+                                            <td>
+                                                <a asp-page="Order" asp-route-id="@item.Id" class="btn btn-success">EDIT</a>
+                                                <button type="button" class="btn btn-danger" onclick="deleteOrder(@item.Id)">DELETE</button>
+                                            </td>
+                                            <td>
+                                                <a asp-page="invoicePrint" asp-route-id="@item.Id" class="btn btn-success"
+                                                   style="background: linear-gradient(90deg, #e83e8c, #a8e063); color: white; font-weight: bold; border: none;box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);transition: all 0.3s ease;">
+                                                    Invoice
+                                                </a>
+                                                <button type="button" class="btn btn-info"
+                                                        onclick="showOrderDetails(@item.Id)"
+                                                        style="background: linear-gradient(90deg, #007bff, #17a2b8); color: white; font-weight: bold; border: none;box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);transition: all 0.3s ease;">
+                                                    Show Details
+                                                </button>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="7">No data found</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Reset the search form
+        document.getElementById('resetButton').addEventListener('click', () => {
+            const url = '@Url.Page("OrderReport")';
+            window.location.href = url;
+        });
+
+        // Download Excel
+        document.getElementById('downloadExcel').addEventListener('click', () => {
+            const url = '@Url.Page("OrderReport", "ExportToExcel")';
+            window.location.href = url;
+        });
+
+        // Handle delete functionality (example placeholder)
+        function deleteOrder(id) {
+            if (confirm('Are you sure you want to DELETE this order?')) {
+                // Implement delete logic or call server-side API
+                console.log('Deleting order with ID:', id);
+            }
+        }
+
+        // Placeholder for showing order details
+        function showOrderDetails(id) {
+            alert(`Displaying details for Order ID: ${id}`);
+        }
+    </script>
+}

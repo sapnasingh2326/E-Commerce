@@ -1,0 +1,126 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.EmailTempModel
+@{
+}
+<div class="content-wrapper">
+    <!-- Page Header -->
+    <section class="content-header">
+        <div class="container-fluid ">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Email Templates</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-page="/Admin/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Email Templates</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Email Template Form -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">@((Model.emailTemp.Id > 0) ? "Update Email Template" : "Add New Email Template")</h3>
+                        </div>
+                        <form method="post" enctype="multipart/form-data">
+                            <input type="hidden" asp-for="emailTemp.Id" />
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label asp-for="emailTemp.Name">Name</label>
+                                    <input type="text" asp-for="emailTemp.Name" class="form-control" placeholder="Enter template name" required />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="emailTemp.Subject">Subject</label>
+                                    <input type="text" asp-for="emailTemp.Subject" class="form-control" placeholder="Enter email subject" required />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="emailTemp.EmailUrl">Email Image URL</label>
+                                    <input type="file" name="file" class="form-control-file" />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="emailTemp.EmailContent">Email Content</label>
+                                    <textarea id="summernote" asp-for="emailTemp.EmailContent" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    @((Model.emailTemp.Id > 0) ? "Update" : "Submit")
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Template Data List -->
+                    <div class="card card-success mt-4">
+                        <div class="card-header">
+                            <h3 class="card-title" style="text-align: center;">Email Templates List</h3>
+                        </div>
+                        <div class="card-body">
+                            <table id="templateTable" class="table table-bordered table-hover">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Subject</th>
+                                        <th>Content</th>
+                                        <th>Image</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.datalist.Any())
+                                    {
+                                        foreach (var item in Model.datalist)
+                                        {
+                                            <tr>
+                                                <td>@item.Id</td>
+                                                <td>@item.Name</td>
+                                                <td>@item.Subject</td>
+                                                <td>@item.EmailContent</td>
+                                                <td>
+                                                    <img src="@item.EmailUrl" width="50" height="50" alt="Template Image" class="img-thumbnail" />
+                                                </td>
+
+                                                <td>
+                                                    <a asp-page="/Admin/EmailTemp" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" onsubmit="return confirm('Are you sure?')" style="display:inline;">
+                                                        @Html.AntiForgeryToken()
+                                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                    </form>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="6" class="text-center">No templates found</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#templateTable').DataTable();
+        $('#summernote').summernote({
+            height: 200,
+            placeholder: 'Write your email content here...'
+        });
+    });
+</script>

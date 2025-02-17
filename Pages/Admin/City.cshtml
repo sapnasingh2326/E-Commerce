@@ -1,0 +1,148 @@
+﻿@page
+@model ECommerceWeb.Pages.Admin.CityModel
+@{
+}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">City</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="Dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item active">City</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <form method="post">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">User City</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Country:</label>
+                                            <select id="CountryId" class="form-control" >
+                                                <option value="">Select Country</option>
+                                                @if (Model.Countries != null)
+                                                {
+                                                    @foreach (var country in Model.Countries)
+                                                    {
+                                                        <option value="@country.Id">@country.CountryName</option>
+                                                    }
+                                                }
+                                            </select>
+
+                                            <span asp-validation-for="City.Id" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="hidden" asp-for="City.StateId" />
+                                            <label asp-for="City.StateId">State:</label>
+                                            <select id="StateId" class="form-control" asp-for="City.StateId">
+                                                <option value="">Select State</option>
+                                                @if (Model.States != null)
+                                                {
+                                                    @foreach (var state in Model.state)
+                                                    {
+                                                        <option value="@state.Id">@state.StateName</option>
+                                                    }
+                                                }
+                                            </select>
+                                            <span asp-validation-for="City.StateId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="City.CityName">City Name:</label>
+                                            <input asp-for="City.CityName" class="form-control" />
+                                            <span asp-validation-for="City.CityName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-center">
+                                @{
+                                    string buttonName = "Save";
+                                    if (Model.City != null && (Model.City.StateId != null && Model.City.StateId != 0))
+                                    {
+                                        buttonName = "Update";
+                                    }
+                                }
+                                <button type="submit" class="btn btn-primary mr-2">@buttonName</button>
+                            </div>
+                        
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">City List</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Country Name</th>
+                                        <th>State Name</th>
+                                        <th>City Name</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var city in Model.Cities)
+                                    {
+                                        <tr>
+                                            <td>@city.CountryName</td>
+                                            <td>@city.StateName</td>
+                                            <td>@city.CityName</td>
+
+                                            <td class="mr-5">
+                                                <a href="City?id=@city.Id" class="btn btn-success">EDIT</a>
+                                                <form method="post" asp-page-handler="Delete" asp-route-id="@city.Id" style="display:inline;">
+                                                    <button type="submit" onclick="return confirm('Are you sure you want to DELETE?')" class="btn btn-danger">
+                                                        DELETE
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+      <!-- /.content -->
+  </div>
+
+<!-- /.content-wrapper -->
+
+@section Scripts {
+    <script src="~/js/admin/City.js"></script>
+}
+
+

@@ -1,0 +1,20 @@
+﻿@page
+@model ECommerceWeb.Pages.DynamicPageDetailsModel
+@{
+}
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>@Model.DynamicPage.PageName</h1>
+    </section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline card-info">
+                    <div class="card-body">
+                        @Html.Raw(Model.DynamicPage.PageContent)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

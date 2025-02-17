@@ -1,0 +1,94 @@
+﻿@page
+@model ECommerceWeb.Pages.ProductReviewModel
+@{
+    ViewData["Title"] = "Product Reviews";
+}
+<style>
+    h2 {
+        font-size: 24px;
+        font-weight: 300;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        color: #EE204D !important;
+    }
+</style>
+
+<div class="content-wrapper container mt-7">
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Product Reviews</h2>
+
+        @if (Model.Product != null)
+        {
+            <h3>@Model.Product.ProductName</h3>
+            <p>@Model.Product.LongDescription</p>
+            <p>@Model.Product.ShortDescription</p>
+        }
+        else
+        {
+            <h3>All Product Reviews</h3>
+        }
+
+        <div class="row">
+            @if (Model.ProductReviews != null && Model.ProductReviews.Any())
+            {
+                @foreach (var review in Model.ProductReviews)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Rating: @review.Rating / 5</h5>
+                                <p class="card-text">@review.Comment</p>
+
+                                @if (!string.IsNullOrEmpty(review.ImageOne))
+                                {
+                                    <img src="@review.ImageOne" alt="Review Image 1" class="img-fluid mb-2">
+                                }
+                                @if (!string.IsNullOrEmpty(review.ImageTwo))
+                                {
+                                    <img src="@review.ImageTwo" alt="Review Image 2" class="img-fluid mb-2">
+                                }
+
+                                <p class="text-muted">Reviewed on: @review.CreatedDate.ToShortDateString()</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-info text-center" role="alert">
+                    No reviews available
+                </div>
+            }
+        </div>
+
+        <!-- Add Review Form -->
+        <div class="mt-5">
+            <h3>Add Your Review</h3>
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="rating">Rating (1-5):</label>
+                    <input type="number" id="rating" asp-for="productReview.Rating" class="form-control" min="1" max="5" required />
+                </div>
+                <div class="form-group">
+                    <label for="comment">Comment:</label>
+                    <textarea id="comment" asp-for="productReview.Comment" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="imageOne">Upload Image One:</label>
+                    <input type="file" id="imageOne" asp-for="productReview.ImageOne" class="form-control-file" />
+                </div>
+                <div class="form-group">
+                    <label for="imageTwo">Upload Image Two:</label>
+                    <input type="file" id="imageTwo" asp-for="productReview.ImageTwo" class="form-control-file" />
+                </div>
+                @* @if(Model.ProductReview.Id != 0)
+                { *@
+                    <button type="submit" class="btn btn-primary mt-3">Submit Review</button>
+                
+               @*  } *@
+            </form>
+
+        </div>
+    </div>
+</div>

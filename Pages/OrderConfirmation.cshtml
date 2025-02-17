@@ -1,0 +1,66 @@
+﻿@page
+@model ECommerceWeb.Pages.OrderConfirmationModel
+@{
+    ViewData["Title"] = "Order Confirmation";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .order-summary-container {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 50px auto;
+            box-shadow: 5px 5px #b3f0f3, 10px 10px #facfcf, 15px 15px #e8c7f9;
+        }
+
+            .order-summary-container h2 {
+                color: darkred;
+            }
+
+            .order-summary-container p {
+                font-size: 18px;
+                color: #6c757d;
+            }
+
+        .thank-you-note {
+            font-size: 14px;
+            margin-top: 20px;
+            padding: 25px;
+            background-color: #e9ecef;
+            border-left: 5px solid #007bff;
+            border-radius: 5px;
+            color: #495057;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="order-summary-container text-center">
+            <h2 class="display-4">Order Confirmation</h2>
+            <p class="lead">Your order has been successfully placed. Thank you for shopping with us!</p>
+            <div class="thank-you-note">
+                We appreciate your business and hope you enjoy your purchase. If you have any questions, feel free to contact our support team.
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

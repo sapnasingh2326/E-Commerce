@@ -1,0 +1,22 @@
+﻿@model IEnumerable<ECommerceWeb.VModel.ProductListVM>
+
+@if (Model != null && Model.Any())
+{
+    foreach (var item in Model)
+    {
+        <div class="col-md-3 col-sm-4 col-xs-6">
+            <div class="product-item">
+                <div class="pi-img-wrapper">
+                    <a href="shop-item.html"><img src="@item.ProductImage" class="img-responsive" alt="@item.ProductName"></a>
+                </div>
+                <h3><a href="shop-item.html">@item.ProductName</a></h3>
+                <div class="pi-price">@item.ProductPrice</div>
+                <a href="JavaScript:;" class="btn btn-default add2cart">Add to cart</a>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>No new products available.</p>
+}

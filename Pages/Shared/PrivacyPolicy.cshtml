@@ -1,0 +1,154 @@
+﻿@page
+@model ECommerceWeb.Pages.Shared.PrivacyPolicyModel
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<!-- Carousel Wrapper -->
+<div class="container">
+    <!-- Carousel Inner -->
+    <h1>@Model.PrivacyPolicydynamicPage.PageName</h1>
+
+    @Html.Raw(Model.PrivacyPolicydynamicPage.PageContent)
+</div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <!-- Privacy Policy Page -->
+<style>
+    /* Styling the carousel items */
+    .carousel-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column; /* Change to column to center text vertically */
+        padding: 20px;
+        background-color: #ffe0b2; /* Light orange background */
+        border: 2px solid #ff7043; /* Orange border */
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(255, 112, 67, 0.2);
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-item:hover {
+        transform: scale(1.05);
+    }
+
+    /* Responsive styling for smaller screens */
+    @media (max-width: 768px) {  /* Removed the extra @ symbol */
+        .carousel-item {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .carousel-image {
+            max-width: 70%;
+            margin: 0 auto 10px auto;
+        }
+    }
+
+    /* Styling the page name */
+    .page-name {
+        font-weight: bold;
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: #ffffff; /* White text */
+        background: rgb(88,173,134);
+        background: radial-gradient(circle, rgba(88,173,134,1) 0%, rgba(153,148,233,1) 100%);
+        padding: 10px 15px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        text-align: center; /* Center align the text */
+        transition: background-color 0.3s ease-in-out;
+        width: 100%; /* Make sure it stretches across the container */
+    }
+
+    .page-name:hover {
+        background-color: #1e88e5; /* Darker blue on hover */
+    }
+
+    /* Styling the page content */
+    .page-content {
+        font-size: 1.1rem;
+        color: #ffffff; /* White text */
+        background-color: #ab47bc; /* Purple background */
+        padding: 15px 20px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Center align the text */
+        margin-top: 20px;
+        transition: background-color 0.3s ease-in-out;
+        width: 100%; /* Make sure it stretches across the container */
+    }
+
+    .page-content:hover {
+            background: rgb(88,173,134);
+            background: radial-gradient(circle, rgba(88,173,134,1) 0%, rgba(122,19,186,1) 100%); /* Darker purple on hover */
+    }
+
+    /* Styling the carousel text container */
+    .carousel-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; /* Center the content horizontally */
+        padding: 20px;
+        background-color: #ffcc80; /* Light orange background */
+        border-radius: 5px;
+        transition: background-color 0.3s ease-in-out;
+        width: 100%; /* Make sure it stretches across the container */
+    }
+
+    .carousel-text:hover {
+        background-color: #ffb74d; /* Darker orange on hover */
+    }
+
+    /* Carousel controls */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        filter: invert(100%); /* Make control icons white */
+    }
+</style>
+
+<!-- Carousel Wrapper -->
+<div id="privacyPolicyCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Carousel Inner -->
+    <div class="carousel-inner" role="listbox">
+        @foreach (var item in Model.PrivacyPolicydynamicPage)
+        {
+            <div class="carousel-item @(item == Model.PrivacyPolicydynamicPage.First() ? "active" : "")">
+                <div class="carousel-text">
+                    <h3 class="page-name">@item.PageName</h3>
+                    <div class="page-content">
+                        @Html.Raw(item.PageContent)
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Controls -->
+    <a class="carousel-control-prev" href="#privacyPolicyCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#privacyPolicyCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+ *@

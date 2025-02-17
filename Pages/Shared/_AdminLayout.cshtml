@@ -1,0 +1,872 @@
+﻿@{
+    string regid = Context.Session.GetString("RegId");
+    string roleid = Context.Session.GetString("RoleId");
+
+    <script>
+        console.log('RegId: @regid, RoleId: @roleid');
+    </script>
+
+    if (regid != null && roleid == "5")
+    {
+
+    }
+    else
+    {
+        Context.Response.Redirect("/Login");
+    }
+}
+
+<!DOCTYPE html> 
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | Dashboard</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="~/AdminLTE/https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/AdminLTE/https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- Tempusdominus Bootstrap 4 -->
+        <link rel="stylesheet" href="~/AdminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+        <!-- iCheck -->
+        <link rel="stylesheet" href="~/AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/AdminLTE/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/summernote/summernote-bs4.min.css">
+
+
+</head>
+<body>
+
+
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="~/AdminLTE/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="~/AdminLTE/index3.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="#" class="nav-link">Contact</a>
+            </li>
+        </ul>
+
+      
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <!-- Navbar Search -->
+            <li class="nav-item">
+                <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                    <i class="fas fa-search"></i>
+                </a>
+
+                <div class="navbar-search-block">
+                    <form class="form-inline">
+                        <div class="input-group input-group-sm">
+                            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-navbar" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </li>
+
+
+            <ul class="nav">
+                <!-- Combined Admin and Customer Logout Section -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <img class="user-logout-img" src="~/AdminLTE/dist/img/user8-128x128.jpg" alt="User Avatar">
+                        <span class="user-name">Metronic-Admin</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <div class="card-body">
+                            <!-- Admin User Info -->
+                            <div class="user-logout-info clearfix">
+                               @*  <img class="user-logout-img float-left" src="~/AdminLTE/dist/img/user8-128x128.jpg" alt="User Avatar"> *@
+                                <span class="user-name float-left"><i class="fas fa-sign-out-alt logout-icon"></i> Logout</span>
+
+
+                                <form method="post" asp-page="/Login" asp-page-handler="Logout" class="form-inline my-2 my-lg-0">
+                                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Logout</button>
+                                </form>
+                            </div>
+                            @* <!-- /.user-logout-info -->
+                            <div class="dropdown-divider"></div>
+                            <!-- Customer User Info -->
+                            <div class="user-logout-info clearfix">
+                                <img class="user-logout-img float-left" src="~/AdminLTE/dist/img/user8-128x128.jpg" alt="User Avatar">
+                                <span class="user-name float-left"><i class="fas fa-eye"></i> Profile</span>
+                                <button class="btn btn-danger float-right" onclick="customerLogout()">Logout</button>
+                            </div>
+                            <!-- /.user-logout-info --> *@
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
+                        <i class="fas fa-th-large"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Optional JavaScript to handle logout -->
+           <script>
+                function logout() {
+                    // Implement your logout logic here
+                    alert('Logged out successfully');
+                    // For example, redirect to the login page
+                    window.location.href = '/login';
+                }
+
+                // function customerLogout() {
+                //     // Implement your customer logout logic here
+                //     alert('Customer logged out successfully');
+                //     // For example, redirect to the customer login page
+                //     window.location.href = '/customer-login';
+                // }
+           </script>
+
+            <style>
+                .user-logout-info {
+                    display: flex;
+                    align-items: center;
+                    padding: 5px;
+                    background-color: #f9f9f9;
+                    border-radius: 4px;
+                    margin-bottom: 10px;
+                }
+
+                .user-logout-img {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                }
+                 
+                .user-name {
+                    font-weight: bold;
+                    font-size: 16px;
+                    margin-right: auto;
+                } 
+
+                .btn-danger {
+                    background-color: #dc3545;
+                    border-color: #dc3545;
+                }
+
+                .dropdown-divider {
+                    height: 1px;
+                    margin: .5rem 0;
+                    overflow: hidden;
+                    background-color: #e9ecef;
+                }
+                .logout-icon {
+                 color: red;
+                }
+
+                .logout-label {
+                    color:darkred;
+                }
+
+                .btn-logout {
+                    background-color: red;
+                    color: white;
+                }
+
+                    .btn-logout:hover {
+                        background-color: green;
+                        color: white;
+                    }
+
+            </style>
+
+            <!-- Font Awesome CDN -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+    </nav>
+    <!-- /.navbar -->
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="index3.html" class="brand-link">
+            <img src="~/AdminLTE/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Metronic-Shop-Admin</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="~/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">Metronic-Shop</a>
+                </div>
+            </div>
+
+         <!-- SidebarSearch Form -->
+            <div class="form-inline">
+                <div class="input-group" data-widget="sidebar-search">
+                    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-sidebar">
+                            <i class="fas fa-search fa-fw"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-users" style="color: mediumvioletred; font-size: 18px;"></i> <!-- Changed icon class here -->
+                            <p>
+                                User Management
+                                <i class="right fas fa-angle-left" style="color: plum; font-size: 18px;"></i>
+                            </p>
+                        </a>
+
+
+
+
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Registration" class="nav-link">
+                                    <i class="nav-icon fas fa-user" style="color: tomato; font-size: 18px;"></i>
+                                    <p> User Registration</p>
+                                </a>
+                            </li>
+                            </ul>
+                     </li>
+
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa-tachometer-alt" style="color: indigo; font-size: 18px;"></i>
+                            <p>
+                               Use Data
+                                <i class="right fas fa-angle-left" style="color: indigo; font-size: 18px;"></i>
+                            </p>
+                        </a>
+                        
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Country" class="nav-link">
+                                    <i class="nav-icon fas fa-globe" style="color: magenta; font-size: 18px;"></i>
+                                    <p>Country</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/State" class="nav-link">
+                                    <i class="nav-icon fas fa-compass" style="color: cadetblue; font-size: 18px;"></i>
+                                    <p>State</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/City" class="nav-link">
+                                    <i class="nav-icon fas fa-city" style="color: blue; font-size: 18px;"></i>
+                                    <p>City</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Role" class="nav-link">
+                                    <i class="nav-icon fas fa-folder" style="color: brown; font-size: 18px;"></i>
+                                    <p>Role</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-copy" style="color:forestgreen; font-size: 18px;"></i>
+                            <p>
+                                E-Commerce
+                                <i class="fas fa-angle-left right" style="color: forestgreen; font-size: 18px;"></i>
+                                <span class="badge badge-info right">6</span>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Category" class="nav-link">
+                                    <i class="nav-icon  fas fa-folder" style="color: lightseagreen; font-size: 18px;"></i>
+                                    <p>Category</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/SubCategory" class="nav-link">
+                                    <i class="nav-icon fas fa-list" style="color: lightcoral; font-size: 18px;"></i>
+                                    <p>SubCategory</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Product" class="nav-link">
+                                    <i class="nav-icon fas fas fa-barcode" style="color: lawngreen; font-size: 18px;"></i>
+                                    <p>Product</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/ProductImage" class="nav-link">
+                                    <i class="nav-icon fas fa-file-image" style="color: orange; font-size: 18px;"></i>
+                                    <p>ProductImage</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/ProductColor" class="nav-link">
+                                    <i class="nav-icon fas fa-paint-brush" style="color: springgreen; font-size: 18px;"></i>
+                                    <p>Product Color</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/ProductSize" class="nav-link">
+                                    <i class="nav-icon fas fa-ruler" style="color: brown; font-size: 18px;"></i>
+                                    <p>Product Size</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/ProductReview" class="nav-link">
+                                    <i class="nav-icon fas fa-star" style="color: yellow; font-size: 18px;"></i>
+                                    <p>Product Review</p>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-chart-pie" style="color: green; font-size: 18px;"></i>
+                            <p>
+                                Order Management
+                                <!---Orders Dashboard
+                                Order Overview
+                                Manage Orders
+                                Orders Hub
+                                Order Insights
+                                Order Center----->
+                                
+                                <i class="right fas fa-angle-left" style="color: #00aaff; font-size: 18px;"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @* <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Registration" class="nav-link">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>Registration</p>
+                                </a>
+                            </li> *@
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Order" class="nav-link">
+                                    <i class="nav-icon fas fa-list" style="color: #eb99ff; font-size: 18px;"></i>
+                                    <p>Order</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/OrderItem" class="nav-link">
+                                    <i class="nav-icon fas fa-file" style="color: #d5ff80; font-size: 18px;"></i>
+                                    <p>Order Item</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/OrderReport" class="nav-link">
+                                    <i class="nav-icon fas fa-receipt" style="color: #4CAF50; font-size: 18px;"></i>
+                                    @* <p style="color: #4CAF50; font-weight: bold; margin-left: 8px;">Order Report</p> *@
+                                    <p>Order Report</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/OrderReportPDF" class="nav-link">
+                                    <i class="nav-icon fas fa-receipt" style="color: #5a2645; font-size: 18px;"></i>
+                                    @* <p style="color: #4CAF50; font-weight: bold; margin-left: 8px;">Order Report</p> *@
+                                    <p>Order Report PDF</p>
+                                </a>
+                            </li>
+
+                          </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-money-check-alt" style="color:#751aff; font-size: 18px;"></i>
+                            <p> 
+                                Payments And Details 
+                                <i class="fas fa-angle-left right" style="color: #ddddbb; font-size: 18px;"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Payment" class="nav-link">
+                                    <i class="nav-icon fas fa-credit-card" style="color:#ffb3b3; font-size: 18px;"></i>
+                                    <p>Payment</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/PaymentMethod" class="nav-link">
+                                    <i class="nav-icon fas fa-wallet" style="color: #66a3ff; font-size: 18px;"></i>
+                                    <p>Payment Method</p>
+                                </a>
+                            </li>
+                           @*  <li class="nav-item">
+                                <a asp-area="" asp-page="/Metronic-Shop/PaymentOptions" class="nav-link">
+                                    <i class="nav-icon fas fa-wallet"></i>
+                                    <p>Payment Method</p>
+                                </a>
+                            </li> *@
+
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/AddressBook" class="nav-link">
+                                    <i class="nav-icon fas fa-address-book" style="color: #333300; font-size: 18px;"></i>
+                                    <p>Address Book</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/AddressType" class="nav-link">
+                                    <i class="nav-icon fas fa-location-arrow" style="color:#ffff66; font-size: 18px;"></i>
+                                    <p>Address Type</p>
+                                </a>
+                            </li>
+                         
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon far fa-heart" style="color:red; font-size: 18px;"></i>
+                            <p>
+                               Cart & WishLists
+                                <i class="fas fa-angle-left right" style="color:#ffff66; font-size: 18px;"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Cart" class="nav-link">
+                                    <i class="nav-icon fas fa-shopping-cart" style="color:#751aff; font-size: 18px;"></i>
+                                    <p>Cart</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Wishlist" class="nav-link">
+                                    <i class="nav-icon fas fa-heart" style="color:#ff9999; font-size: 18px;"></i>
+                                    <p>Wishlist</p>
+                                </a>
+                            </li>
+                            
+                           
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-phone" style="color:#ffff66; font-size: 18px;"></i>
+                            <p>
+                               Customer Services
+                                <i class="fas fa-angle-left right" style="color:   #ff99c2; font-size: 18px;"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/ContactUs" class="nav-link">
+                                    <i class="nav-icon far fa-envelope" style="color: #4da6ff; font-size: 18px;"></i>
+                                    <p>Contact Us</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/NewsletterSubscriptions" class="nav-link">
+                                    <i class="nav-icon far fa-newspaper" style="color: #003300; font-size: 18px;" ></i>
+                                    <p>Newsletter Subscription</p>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-area="" asp-page="/Admin/Banner" class="nav-link">
+                            <i class="nav-icon fas fa-image" style="color: #99ff66; font-size: 18px;"></i>
+                            <p>Banner</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-area="" asp-page="/Admin/Brand" class="nav-link">
+                            <i class="nav-icon fas fa-industry" style="color: blue; font-size: 18px;"></i>
+                            <p>Brands</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-page="/ProductDetails" class="nav-link">
+                            <i class="nav-icon fas fa-box-open" style="color:  mediumorchid"></i>
+                            <p>ProductDetails</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-page="/Admin/DynamicPage" class="nav-link">
+                            <!-- Example with a globe icon -->
+                            <i class="nav-icon fas fa-star" style="color: #66ffcc; font-size: 18px;"></i>
+                            <p>DynamicPage</p>
+                        </a>
+                    </li>
+
+                    
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-file-alt" style="color: red; font-size: 18px;"></i>
+                            <p> 
+                                SMTP
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Smtpconfig" class="nav-link">
+                                    <i class="far fa-circle nav-icon" style="color: yellow; font-size: 18px;"></i>
+                                    <p>Smtpconfig</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/EmailTemp" class="nav-link">
+                                    <i class="far fa-circle nav-icon" style="color: yellow; font-size: 18px;"></i>
+                                    <p>EmailTemp</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/InvoicePrint" class="nav-link">
+                                    <i class="far fa-circle nav-icon" style="color: #660033; font-size: 18px;"></i>
+                                    <p>InvoicePrint</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="Admin" asp-page="/CreateInvoice" class="nav-link">
+                                    <i class="far fa-circle nav-icon" style="color: orangered; font-size: 18px;"></i>
+                                    <p>Create Invoice</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/ListView" class="nav-link">
+                                    <i class="far fa-circle nav-icon" style="color: hotpink; font-size: 18px;"></i>
+                                    <p>List View</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Details" class="nav-link">
+                                    <i class="far fa-circle nav-icon" style="color: olive; font-size: 18px;"></i>
+                                    <p>Details</p>
+                                </a>
+                            </li>
+                        </ul>
+                            
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon far fa-envelope" style="color:#6699ff; font-size: 18px;"></i>
+                            <p>
+                                Mailbox
+                                <i class="fas fa-angle-left right" style="color:darkgoldenrod; font-size: 18px;"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Inbox"class="nav-link">
+                                    <i class="far fa-circle nav-icon" style="color:#00b33c; font-size: 18px;"></i>
+                                    <p>Inbox</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Compose" class="nav-link">
+                                    <i class="far fa-circle na/v-icon" style="color:#000099; font-size: 18px;"></i>
+                                    <p>Compose</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/Read" Admin" class="nav-link">
+                                    <i class="far fa-circle nav-icon" style="color:#ff0066; font-size: 18px;"></i>
+                                    <p>Read</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/EmailTemplate" Admin" class="nav-link">
+                                    <i class="far fa-circle nav-icon" style="color:deepskyblue; font-size: 18px;"></i>
+                                    <p>EmailTemplate</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/WebmailTemplate" Admin" class="nav-link">
+                                    <i class="far fa-circle nav-icon" style="color: #660066; font-size: 18px;"></i>
+                                    <p>WebMail</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-cogs" style="color: sienna; font-size: 18px;"></i> <!-- Changed to a settings icon for "Configuration" -->
+                            <p>
+                                Configuration 
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/Admin/AppInfo" class="nav-link">
+                                    <i class="nav-icon fas fa-info-circle" style="color: seagreen; font-size: 18px;"></i>
+                                    <p>AppInfo</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/SendSMS" class="nav-link">
+                                    <i class="fas fa-sms" style="color: yellow; font-size: 18px;"></i>
+                                    <p>Send SMS</p>
+                                </a>
+                            </li>
+
+                        </ul> 
+                       
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-star" style="color: yellow; font-size: 18px;"></i> <!-- Changed to a star icon for "Reviews" -->
+                            <p>
+                                Reviews
+                                <i class="fas fa-chevron-right right"></i> <!-- Changed to a chevron icon for better styling -->
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a asp-area="" asp-page="/ProductReview" class="nav-link">
+                                    <i class="nav-icon fas fa-comment-alt" style="color: #660033; font-size: 18px;"></i> <!-- Changed to a comment icon for "ProductReview" -->
+                                    <p>Product Review</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-item">
+                        
+                        <ul class="nav nav-treeview">
+
+                            <li class="nav-item">
+                                <a href="pages/examples/e-commerce.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>E-commerce</p>
+                                </a>
+                            </li>
+                            
+                             <li class="nav-item">
+                                <a href="pages/examples/contacts.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Contacts</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/examples/faq.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>FAQ</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/examples/contact-us.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Contact us</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>
+                                        Login & Register v1
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="pages/examples/login.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Login v1</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages/examples/register.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Register v1</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages/examples/forgot-password.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Forgot Password v1</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages/examples/recover-password.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Recover Password v1</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>
+                                        Login & Register v2
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="pages/examples/login-v2.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Login v2</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages/examples/register-v2.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Register v2</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages/examples/forgot-password-v2.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Forgot Password v2</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages/examples/recover-password-v2.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Recover Password v2</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                             
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+
+    <div>
+        @RenderBody()
+    </div>
+
+    @* <footer class="main-footer">
+        <strong>Copyright &copy; 2024-2025 <a href="~/AdminLTE/https://adminlte.io">AdminLTE.io</a>.</strong>
+        All rights reserved.
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 3.2.0
+        </div>
+    </footer> *@
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+     
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+    <script src="~/AdminLTE/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/AdminLTE/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="~/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/AdminLTE/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="~/AdminLTE/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="~/AdminLTE/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="~/AdminLTE/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="~/AdminLTE/plugins/moment/moment.min.js"></script>
+    <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="~/AdminLTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/AdminLTE/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/AdminLTE/dist/js/adminlte.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/AdminLTE/dist/js/demo.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="~/AdminLTE/dist/js/pages/dashboard.js"></script>
+
+
+    <script>
+        $(function () {
+            // Summernote
+            $('#summernote').summernote();
+        })
+    </script>
+
+
+</body>
+
+@RenderSection("Scripts", required: false)
+</html>

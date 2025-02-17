@@ -1,0 +1,19 @@
+﻿@* @{
+    Layout = "_Layout";
+} *@
+
+@using Microsoft.AspNetCore.Http
+
+@{
+    var routeURL = $"{Context.Request.Path}/";
+    bool isadmin = routeURL.ToString().ToLower().Contains("/admin/");
+
+    if (isadmin)
+    {
+        Layout = "_AdminLayout";
+    }
+    else
+    {
+        Layout = "_MetronicShop";
+    }
+}

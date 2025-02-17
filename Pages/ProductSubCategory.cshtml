@@ -1,0 +1,69 @@
+﻿@page
+@model ECommerceWeb.Pages.ProductSubCategoryModel
+@{
+    ViewBag.Title = "ProductSubCategory";
+}
+<style>
+    .product-main-image img {
+        width: 50%;
+        height: 50%;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+    }
+
+    .product-other-images img {
+        width: 30px;
+        height: 30px;
+        margin: 2px;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+        .product-other-images img:hover {
+            transform: scale(1.1);
+        }
+</style>
+
+
+<div class="main">
+    <div class="container">
+
+        <!------ BEGIN SALE PRODUCT------>
+        <div class="row margin-bottom-40">
+
+
+
+            <!-- BEGIN CONTENT -->
+            <div class="col-md-9 col-sm-8">
+                <h2>Product List</h2>
+                <div class="owl-carousel owl-carousel3">
+                    <!-- First slide --> 
+                    @foreach (var item in Model.products)
+                    {
+                        <div>
+                            <div class="product-item">
+                                <div class="pi-img-wrapper">
+                                    <img src="@item.ProductImage" class="img-responsive small-img" alt="Berry Lace Dress">
+                                    <div>
+                                        <a href="@item.ProductImage" class="btn btn-default fancy box-button">Zoom</a>
+                                        <a href="#product-pop-up" class="btn btn-default fancy box-fast-view">View</a>
+                                    </div>
+                                </div>
+                                <h3><a href="shop-item.html">@item.ProductName</a></h3>
+                                <div class="pi-price">@item.ProductPrice</div>
+                                <a href="JavaScript:;" class="btn btn-default add2cart">Add to cart</a><br /><br/>
+                                <a href="ProductDetails?id=@item.id">ViewDetails</a>
+                                <div class="sticker sticker-new"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <!-- END CONTENT -->
+
+        </div>
+    </div>
+</div>  

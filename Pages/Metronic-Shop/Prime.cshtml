@@ -1,0 +1,153 @@
+﻿@page
+@model ECommerceWeb.Pages.Metronic_Shop.PrimeModel
+@{
+    ViewData["Title"] = "Prime Membership";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Prime Membership</title>
+    <style>
+        .prime-header {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f77062, #fe5196);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .prime-container {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .prime-benefits {
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .benefit-card {
+            flex: 1;
+            margin: 10px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+            .benefit-card h3 {
+                margin-bottom: 10px;
+            }
+
+        .btn-join {
+            background-color: #ff9800;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+
+            .btn-join:hover {
+                background-color: #e68a00;
+            }
+
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            padding: 0;
+            background-color: #e8e8ff;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+            nav ul li {
+                flex: 1;
+                text-align: center;
+            }
+
+                nav ul li a {
+                    display: block;
+                    padding: 10px;
+                    text-decoration: none;
+                    color: #333;
+                }
+
+                    nav ul li a:hover {
+                        background-color: #9c9cff;
+                    }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="YourOrders"><i class="fas fa-box"></i> Your Orders</a></li>
+            <li><a href="#login-security"><i class="fas fa-user-shield"></i> Login & Security</a></li>
+            <li><a href="prime"><i class="fas fa-crown"></i> Prime</a></li>
+            <li><a href="youraddresses"><i class="fas fa-map-marker-alt"></i> Your Addresses</a></li>
+            <li><a href="paymentoptions"><i class="fas fa-credit-card"></i> Payment Options</a></li>
+        </ul>
+    </nav>
+
+    <div class="prime-header">
+        <h1>Welcome to Prime Membership</h1>
+        <p>Enjoy exclusive benefits and features.</p>
+    </div>
+
+    <div class="prime-container">
+        <h2>Prime Benefits</h2>
+        <div class="prime-benefits">
+            <div class="benefit-card">
+                <h3>Fast Shipping</h3>
+                <p>Get unlimited fast delivery on your orders.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>Exclusive Deals</h3>
+                <p>Access special discounts and promotions.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>Prime Video</h3>
+                <p>Stream thousands of movies and TV shows.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>Prime Music</h3>
+                <p>Listen to millions of songs ad-free.</p>
+            </div>
+        </div>
+
+        @if (Model.IsPrimeMember)
+        {
+            <p>You are already a Prime member!</p>
+        }
+        else
+        {
+            <form method="post">
+                <button class="btn-join" type="submit" formaction="@Url.Page("Prime", "JoinPrime")">Join Prime</button>
+            </form>
+        }
+    </div>
+</body>
+</html>
+
+<script>
+    function JoinPrime() {
+        // Add your functionality here
+        alert("Join as a Prime Member");
+    }
+
+    function
+
+</script>
